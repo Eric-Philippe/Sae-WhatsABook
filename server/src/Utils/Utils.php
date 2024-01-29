@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Utils;
+
 class Utils {
     public static function generateUUID() {
         return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',

@@ -6,12 +6,13 @@ use App\Repository\MemberRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: MemberRepository::class)]
-class Member
+class Member implements PasswordAuthenticatedUserInterface, UserInterface
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
     #[ORM\Column(length: 36)]
     private ?string $id = null;
 
@@ -28,7 +29,7 @@ class Member
     private ?\DateTimeInterface $birthDate = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $email = null;
+    private ?string $email = "";
 
     #[ORM\Column(length: 80)]
     private ?string $adress = null;
@@ -106,7 +107,7 @@ class Member
         return $this->birthDate;
     }
 
-    public function setDateNaiss(\DateTimeInterface $birthDate): static
+    public function setBirthDate(\DateTimeInterface $birthDate): static
     {
         $this->birthDate = $birthDate;
 
@@ -173,9 +174,9 @@ class Member
         return $this;
     }
 
-    public function getRole(): ?Role
+    public function getRoles(): array
     {
-        return $this->role;
+        return [$this->role->getName()];
     }
 
     public function setRole(Role $role): static
@@ -205,6 +206,16 @@ class Member
     public function setReservations($reservations): static
     {
         $this->reservations = $reservations;
+        return $this;
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    public function eraseCredentials(): static
+    {
         return $this;
     }
 }

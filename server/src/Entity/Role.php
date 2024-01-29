@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Role
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
     #[ORM\Column(length: 36)]
     private ?string $id = null;
 
@@ -27,9 +26,9 @@ class Role
         return $this->id;
     }
 
-    public function setIdRole(string $idRole): static
+    public function setId(string $id): static
     {
-        $this->id = $idRole;
+        $this->id = $id;
 
         return $this;
     }

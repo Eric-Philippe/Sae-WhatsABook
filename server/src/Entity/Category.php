@@ -2,10 +2,10 @@
 
 namespace App\Entity;
 
-use App\Repository\CategorieRepository;
+use App\Repository\CategoryRepositoy;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CategorieRepository::class)]
+#[ORM\Entity(repositoryClass: CategoryRepositoy::class)]
 class Category
 {
     #[ORM\Id]

@@ -14,7 +14,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Loan[]    findAll()
  * @method Loan[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EmpruntRepository extends ServiceEntityRepository
+class LoanRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

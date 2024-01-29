@@ -5,14 +5,26 @@ namespace App\DataFixtures;
 use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+
 use Faker\Factory;
 use App\Entity\Author;
 use App\Entity\Category;
 use App\Entity\Book;
-use Utils;
+use App\Entity\Member;
+use App\Entity\Role;
+
+use App\Utils\Utils;
 
 class DataFixtures extends Fixture
 {
+    private $userPasswordHasher;
+    
+    public function __construct(UserPasswordHasherInterface $userPasswordHasher)
+    {
+        $this->userPasswordHasher = $userPasswordHasher;
+    }
+
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create('fr_FR');
@@ -95,5 +107,54 @@ class DataFixtures extends Fixture
         }
 
         $manager->flush();
+
+
+        $roles = [];
+        $roles_name = ["ROLE_USER", "ROLE_STAFF", "ROLE_ADMIN"];
+        $ROLES_COUNT = count($roles_name);
+        $uuids = Utils::generateUniqueUUIDs($ROLES_COUNT);
+        for( $i = 0; $i < $ROLES_COUNT; $i++ ) {
+            $role = (new Role())->setId($uuids[$i])->setName($roles_name[$i])->setPermissionRang($i);
+
+            $roles[] = $role;
+            $manager->persist($role);
+        }
+        
+        $manager->flush();
+
+        $member = new Member();
+        $member->setPassword($this->userPasswordHasher->hashPassword($member, "admin"))
+                ->setId(Utils::generateUUID())
+                ->setEmail("ericphlpp@gmail.com")
+                ->setAdress("1 rue de la paix, 75000 Paris")
+                ->setFirstname("Admin")
+                ->setLastname("Doe")
+                ->setPhoneNumber("0606060606")
+                ->setRole($roles[2])
+                ->setCreationDate(new \DateTime("now"))
+                ->setPhotoLink("https://picsum.photos/360/360?image=".(89) ."&grayscale")
+                ->setBirthDate(new \DateTime("2003-05-13"))
+                ;
+        $manager->persist($member);
+
+        $manager->flush();
+
+        $member = new Member();
+        $member->setPassword($this->userPasswordHasher->hashPassword($member, "admin"))
+                ->setId(Utils::generateUUID())
+                ->setEmail("member@member.com")
+                ->setAdress("2 rue de la paix, 75000 Paris")
+                ->setFirstname("Member")
+                ->setLastname("Doe")
+                ->setPhoneNumber("0606060606")
+                ->setRole($roles[0])
+                ->setCreationDate(new \DateTime("now"))
+                ->setPhotoLink("https://picsum.photos/360/360?image=".(89) ."&grayscale")
+                ->setBirthDate(new \DateTime("2003-05-13"))
+                ;
+        $manager->persist($member);
+
+        $manager->flush();
+
     }
 }

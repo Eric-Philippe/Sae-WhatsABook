@@ -35,10 +35,10 @@ class Book
     private $categories;
     
     #[ORM\OneToMany(mappedBy: 'book', targetEntity: Reservation::class)]
-    private $reservations;
+    private $reservations = null;
     
     #[ORM\OneToMany(mappedBy: 'book', targetEntity: Loan::class)]
-    private $loans;
+    private $loans = null;
     
     #[ORM\ManyToMany(targetEntity: Author::class, inversedBy: 'book')]
     #[ORM\JoinTable(name: 'book_author')]
@@ -136,7 +136,10 @@ class Book
         return $this;
     }
 
-    public function getReservations(): ?array {
+    public function getReservations() {
+        if (!$this->reservations) {
+            $this->reservations = new ArrayCollection();
+        }
         return $this->reservations;
     }
 
@@ -145,7 +148,10 @@ class Book
         return $this;
     }
 
-    public function getLoans(): ?array {
+    public function getLoans() {
+        if (!$this->loans) {
+            $this->loans = new ArrayCollection();
+        }
         return $this->loans;
     }
 }
