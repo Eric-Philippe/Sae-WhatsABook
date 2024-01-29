@@ -10,39 +10,27 @@ use Doctrine\ORM\Mapping as ORM;
 class Reservation
 {
     #[ORM\Id]
-    #[ORM\Column(length: 50)]
-    private ?string $idResa = null;
+    #[ORM\Column(length: 36)]
+    private ?string $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateResa = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $idLivre = null;
+    #[ORM\ManyToOne(targetEntity: Book::class, inversedBy: 'reservations')]
+    #[ORM\JoinColumn(name: 'id', referencedColumnName: 'id')]
+    private $book;
 
-    #[ORM\Column(length: 50)]
-    private ?string $idAdherant = null;
-
-    #[ORM\ManyToOne(targetEntity: Livre::class, inversedBy: 'reservations')]
-    #[ORM\JoinColumn(name: 'idLivre', referencedColumnName: 'id_livre')]
-    private $livre;
-
-    #[ORM\ManyToOne(targetEntity: Adherent::class, inversedBy: 'reservations')]
-    #[ORM\JoinColumn(name: 'idAdherent', referencedColumnName: 'id_adherent')]
-    private $adherent;
+    #[ORM\ManyToOne(targetEntity: Member::class, inversedBy: 'reservations')]
+    #[ORM\JoinColumn(name: 'id', referencedColumnName: 'id')]
+    private $member;
 
     public function getId(): ?string
     {
-        return $this->idResa;
+        return $this->id;
     }
-
-    public function getIdResa(): ?string
+    public function setId(string $id): static
     {
-        return $this->idResa;
-    }
-
-    public function setIdResa(string $idResa): static
-    {
-        $this->idResa = $idResa;
+        $this->id = $id;
 
         return $this;
     }
@@ -59,27 +47,20 @@ class Reservation
         return $this;
     }
 
-    public function getIdLivre(): ?string
+    public function getBook()
     {
-        return $this->idLivre;
+        return $this->book;
     }
 
-    public function setIdLivre(string $idLivre): static
+    public function setBook($book): static
     {
-        $this->idLivre = $idLivre;
+        $this->book = $book;
 
         return $this;
     }
 
-    public function getIdAdherant(): ?string
+    public function getMembre(): ?Member
     {
-        return $this->idAdherant;
-    }
-
-    public function setIdAdherant(string $idAdherant): static
-    {
-        $this->idAdherant = $idAdherant;
-
-        return $this;
+        return $this->member;
     }
 }

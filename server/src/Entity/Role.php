@@ -10,26 +10,26 @@ class Role
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(length: 50)]
-    private ?string $idRole = null;
+    #[ORM\Column(length: 36)]
+    private ?string $id = null;
 
     #[ORM\Column(length: 50)]
     private ?string $name = null;
 
     #[ORM\Column]
-    private ?int $permissionRang = null;
+    private ?int $permissionRank = null;
 
-    #[ORM\OneToMany(mappedBy: 'role', targetEntity: Adherent::class)]
-    private $adherents;
+    #[ORM\OneToMany(mappedBy: 'role', targetEntity: Member::class)]
+    private $members;
 
     public function getId(): ?string
     {
-        return $this->idRole;
+        return $this->id;
     }
 
     public function setIdRole(string $idRole): static
     {
-        $this->idRole = $idRole;
+        $this->id = $idRole;
 
         return $this;
     }
@@ -48,12 +48,12 @@ class Role
 
     public function getPermissionRang(): ?int
     {
-        return $this->permissionRang;
+        return $this->permissionRank;
     }
 
     public function setPermissionRang(int $permissionRang): static
     {
-        $this->permissionRang = $permissionRang;
+        $this->permissionRank = $permissionRang;
 
         return $this;
     }

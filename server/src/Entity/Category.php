@@ -6,42 +6,41 @@ use App\Repository\CategorieRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
-class Categorie
+class Category
 {
     #[ORM\Id]
-    #[ORM\Column(length: 50)]
-    private ?string $idCat = null;
+    #[ORM\Column(length: 36)]
+    private ?string $id = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $nom = null;
+    private ?string $name = null;
 
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Appartenir::class)]
-    private $appartenances;
-
+    #[ORM\ManyToMany(targetEntity: Book::class, mappedBy: 'category')]
+    private $books;
 
     public function getId(): ?string
     {
-        return $this->idCat;
+        return $this->id;
     }
 
-    public function setId(string $idCat): Categorie
+    public function setId(string $idCat): Category
     {
-        $this->idCat = $idCat;
+        $this->id = $idCat;
 
         return $this;
     }
 
-    public function getNom(): ?string
+    public function getName(): ?string
     {
-        return $this->nom;
+        return $this->name;
     }
 
-    public function setNom(string $nom): static
+    public function setName(string $name): static
     {
-        $this->nom = $nom;
+        $this->name = $name;
 
         return $this;
     }
@@ -56,5 +55,10 @@ class Categorie
         $this->description = $description;
 
         return $this;
+    }
+
+    public function getBooks() 
+    {
+        return $this->books;
     }
 }

@@ -2,27 +2,27 @@
 
 namespace App\Repository;
 
-use App\Entity\Emprunt;
+use App\Entity\Loan;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Emprunt>
+ * @extends ServiceEntityRepository<Loan>
  *
- * @method Emprunt|null find($id, $lockMode = null, $lockVersion = null)
- * @method Emprunt|null findOneBy(array $criteria, array $orderBy = null)
- * @method Emprunt[]    findAll()
- * @method Emprunt[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Loan|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Loan|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Loan[]    findAll()
+ * @method Loan[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class EmpruntRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Emprunt::class);
+        parent::__construct($registry, Loan::class);
     }
 
 //    /**
-//     * @return Emprunt[] Returns an array of Emprunt objects
+//     * @return Loan[] Returns an array of Loan objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -36,7 +36,7 @@ class EmpruntRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Emprunt
+//    public function findOneBySomeField($value): ?Loan
 //    {
 //        return $this->createQueryBuilder('e')
 //            ->andWhere('e.exampleField = :val')
