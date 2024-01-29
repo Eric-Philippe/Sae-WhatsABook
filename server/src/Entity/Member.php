@@ -46,10 +46,11 @@ class Member
     #[ORM\JoinColumn(name: 'role_id', referencedColumnName: 'id')]
     private ?Role $role = null;
 
-    #[ORM\OneToMany(mappedBy: 'member', targetEntity: Reservation::class)]
+    #[ORM\OneToMany(mappedBy: 'member', targetEntity: Reservation::class, orphanRemoval: true)]
+    #[ORM\OrderBy(['createdAt' => 'ASC'])]
     private $reservations;
-
-    #[ORM\OneToMany(mappedBy: 'member', targetEntity: Loan::class)]
+    #[ORM\OneToMany(mappedBy: 'member', targetEntity: Loan::class, orphanRemoval: true)]
+    #[ORM\OrderBy(['loanDate' => 'ASC'])]
     private $loans;
 
     public function getId(): ?string

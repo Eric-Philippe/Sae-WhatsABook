@@ -21,8 +21,9 @@ class Reservation
     private $book;
 
     #[ORM\ManyToOne(targetEntity: Member::class, inversedBy: 'reservations')]
-    #[ORM\JoinColumn(name: 'id', referencedColumnName: 'id')]
-    private $member;
+    #[ORM\JoinColumn(name: 'member_id', referencedColumnName: 'id')]
+    private ?Member $member = null;
+
 
     public function getId(): ?string
     {

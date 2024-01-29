@@ -26,9 +26,9 @@ class Loan
     #[ORM\JoinColumn(name: 'id', referencedColumnName: 'id')]
     private $book;
 
-    #[ORM\ManyToOne(targetEntity: Loan::class, inversedBy: 'loan')]
-    #[ORM\JoinColumn(name: 'id', referencedColumnName: 'id')]
-    private $member;
+    #[ORM\ManyToOne(targetEntity: Member::class, inversedBy: 'loans')]
+    #[ORM\JoinColumn(name: 'member_id', referencedColumnName: 'id')]
+    private ?Member $member = null;
 
     public function getId(): ?string
     {
