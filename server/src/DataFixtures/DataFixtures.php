@@ -156,5 +156,30 @@ class DataFixtures extends Fixture
 
         $manager->flush();
 
+        $members = [];
+        $MEMBERS_COUNT = 30;
+        $uuids = Utils::generateUniqueUUIDs($MEMBERS_COUNT);
+        for ($i = 0; $i < $MEMBERS_COUNT; $i++) {
+            $randomBirthDate = new \DateTime("");
+            $randomBirthDate->sub(new \DateInterval("P".rand(0, 100)."Y".rand(0, 12)."M".rand(0, 30)."DT".rand(0, 23)."H".rand(0, 59)."M".rand(0, 59)."S"));
+            $member = (new Member())->setId($uuids[$i])
+                ->setEmail($faker->email())
+                ->setAdress($faker->address())
+                ->setFirstname($faker->firstName())
+                ->setLastname($faker->lastName())
+                ->setPhoneNumber("0672825027")
+                ->setPassword($this->userPasswordHasher->hashPassword($member, "member"))
+                ->setRole($roles[0])
+                ->setCreationDate(new \DateTime("now"))
+                ->setPhotoLink("https://picsum.photos/360/360?image=".($i+1))
+                ->setBirthDate($randomBirthDate)
+            ;
+
+            $members[] = $member;
+            $manager->persist($member);
+        }
+
+        $manager->flush();
+
     }
 }
