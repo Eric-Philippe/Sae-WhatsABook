@@ -9,9 +9,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class UserController extends AbstractController
 {
@@ -23,7 +20,7 @@ class UserController extends AbstractController
         $this->memberRepo = $memberRepository;
     }
 
-    #[Route('/api/user', name: 'user', methods: ['POST'])]
+    #[Route('/api/user/me', name: 'user', methods: ['GET'])]
     public function getConnectedUser(Request $request, MemberRepository $memberRepository): JsonResponse
     {
         
@@ -33,7 +30,7 @@ class UserController extends AbstractController
             'email' => $user->getEmail(),
             'firstname' => $user->getFirstname(),
             'lastname' => $user->getLastname(),
-            'roles' => $user->getRoles(),
+            'role' => $user->getRoles()[0],
         ]);
 
 
