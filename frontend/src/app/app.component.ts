@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { HeaderComponent } from './Components/header/header.component';
+
 import Session from './Middlewares/Session';
 
 const RANDOM_BOOKS = [
@@ -17,10 +19,16 @@ const RANDOM_BOOKS = [
 export class AppComponent {
   title = 'frontend';
   randomBook = RANDOM_BOOKS[Math.floor(Math.random() * RANDOM_BOOKS.length)];
+  displayBanner = true;
+
   session = Session.getInstance();
 
   constructor() {
     this.session.login('member@member.com', 'admin');
     console.log(this.session.user);
+  }
+
+  hideBanner() {
+    this.displayBanner = false;
   }
 }

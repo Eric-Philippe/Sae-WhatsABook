@@ -34,6 +34,13 @@ export default class Session {
     this.user = {} as Member;
   }
 
+  public async restore() {
+    this.token = localStorage.getItem('token') || '';
+    if (this.token) {
+      await this.fetchUser();
+    }
+  }
+
   public async login(email: string, password: string) {
     const res = await axios.post(API_URL('/login_check'), {
       email: email,

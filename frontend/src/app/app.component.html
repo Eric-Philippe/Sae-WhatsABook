@@ -1,4 +1,5 @@
 <div
+  *ngIf="displayBanner"
   class="relative isolate flex items-center gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5 sm:before:flex-1"
 >
   <div
@@ -75,7 +76,11 @@
     >
   </div>
   <div class="flex flex-1 justify-end">
-    <button type="button" class="-m-3 p-3 focus-visible:outline-offset-[-4px]">
+    <button
+      type="button"
+      class="-m-3 p-3 focus-visible:outline-offset-[-4px]"
+      (click)="displayBanner = false"
+    >
       <span class="sr-only">Dismiss</span>
       <svg
         class="h-5 w-5 text-gray-900"
@@ -89,4 +94,58 @@
       </svg>
     </button>
   </div>
+</div>
+<app-header></app-header>
+
+<div style="position: relative">
+  <img
+    src="assets/Library.jpg"
+    alt="Library"
+    class="w-full object-cover h-[500px] lg:mb-[-50px]"
+    style="filter: brightness(0.5); z-index: -5"
+  />
+
+  <!-- Cadre blanc -->
+  <div
+    class="bg-white w-full lg:w-4/5 mx-auto lg:rounded-t-lg lg:absolute lg:bottom-0 lg:transform lg:translate-y-[50px] lg:z-1 lg:left-0 lg:right-0 lg:ml-auto lg:mr-auto"
+  >
+    <div class="grid lg:grid-cols-3 gap-4">
+      <!-- Card 1 -->
+      <div class="rounded overflow-hidden shadow-lg p-6">
+        <h2 class="font-bold text-xl mb-2">Le saviez-vous?</h2>
+        <p class="text-gray-700 text-base">
+          Le premier livre a mis environ 400 jours à être imprimé par Gutenberg,
+          utilisant près de 300 encres différentes! Aujourd'hui, certaines
+          presses peuvent imprimer 60 000 exemplaires de journal par heure!
+        </p>
+      </div>
+      <!-- Card 2 -->
+      <div class="rounded overflow-hidden shadow-lg p-6">
+        <h2 class="font-bold text-xl mb-2">Devenez bénévole !</h2>
+        <p class="text-gray-700 text-base">
+          Vous aimez les livres et souhaitez faire partager votre passion? Venez
+          faire la lecture aux enfants de la commune, le mercredi après-midi et
+          le samedi matin..
+        </p>
+      </div>
+      <!-- Card 3 -->
+      <div class="rounded overflow-hidden shadow-lg p-6">
+        <h2 class="font-bold text-xl mb-2">Journée Découverte</h2>
+        <p class="text-gray-700 text-base">
+          Votre bibliothèque vous accueille samedi 23 mars de 10h à 21h pour une
+          journée découverte. Comment les livres sont choisis et classés, quel
+          est le vrai travail d'un bibliothécaire... Venez voir l'envers du
+          décor!
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="p-6 lg:mt-28">
+  <h2 class="font-bold text-xl mb-2">Horaires de la bibliothèque</h2>
+  <p class="text-gray-700 text-base">
+    Lundi - Vendredi : 9h - 18h <br />
+    Samedi : 10h - 15h <br />
+    Dimanche : Fermé
+  </p>
 </div>
