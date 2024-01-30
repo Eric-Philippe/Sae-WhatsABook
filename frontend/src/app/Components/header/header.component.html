@@ -36,25 +36,21 @@
       </button>
     </div>
     <div class="hidden lg:flex lg:gap-x-12">
-      <div class="relative">
-        <button
-          type="button"
-          class="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900"
-          aria-expanded="false"
-        >
-          Nos livres
-        </button>
-      </div>
-
+      <a routerLink="/" class="text-sm font-semibold leading-6 text-gray-900"
+        >Accueil</a
+      >
+      <a href="#" class="text-sm font-semibold leading-6 text-gray-900"
+        >Nos livres</a
+      >
       <a href="#" class="text-sm font-semibold leading-6 text-gray-900"
         >Suggérer un livre</a
       >
-      <a href="#" class="text-sm font-semibold leading-6 text-gray-900"
-        >Contactez-nous</a
-      >
-      <a href="#" class="text-sm font-semibold leading-6 text-gray-900"
+      <a
+        routerLink="/support"
+        class="text-sm font-semibold leading-6 text-gray-900"
         >Support</a
       >
+
       <a href="#" class="text-sm font-semibold leading-6 text-gray-900"
         >Devenir Adhérent</a
       >
@@ -111,29 +107,18 @@
       <div class="mt-6 flow-root">
         <div class="-my-6 divide-y divide-gray-500/10">
           <div class="space-y-2 py-6">
-            <div class="-mx-3">
-              <button
-                type="button"
-                class="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                aria-controls="disclosure-1"
-                aria-expanded="false"
-              >
-                Nos livres
-              </button>
-              <!-- 'Product' sub-menu, show/hide based on menu state. -->
-            </div>
+            <a
+              routerLink="/"
+              class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+              >Accueil</a
+            >
             <a
               href="#"
               class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
               >Suggérer un livre</a
             >
             <a
-              href="#"
-              class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-              >Contactez-nous</a
-            >
-            <a
-              href="#"
+              routerLink="/support"
               class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
               >Support</a
             >

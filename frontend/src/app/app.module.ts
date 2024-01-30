@@ -10,6 +10,8 @@ import { LoginPage } from './Pages/Login/login.page';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AccountPage } from './Pages/Account/account.page';
+import { SupportPage } from './Pages/Support/support.page';
+import { NotFoundPage } from './Pages/404/notfound.page';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { AccountPage } from './Pages/Account/account.page';
     LoginPage,
     AppComponent,
     AccountPage,
+    SupportPage,
+    NotFoundPage,
   ],
   imports: [
     BrowserModule,
