@@ -1,0 +1,240 @@
+<div
+  *ngIf="displayBanner"
+  class="relative isolate flex items-center gap-x-6 overflow-hidden bg-gray-50 px-6 py-2.5 sm:px-3.5 sm:before:flex-1"
+>
+  <div
+    class="absolute left-[max(-7rem,calc(50%-52rem))] top-1/2 -z-10 -translate-y-1/2 transform-gpu blur-2xl"
+    aria-hidden="true"
+  >
+    <div
+      class="aspect-[577/310] w-[36.0625rem] bg-gradient-to-r from-[#ff80b5] to-[#9089fc] opacity-30"
+      style="
+        clip-path: polygon(
+          74.8% 41.9%,
+          97.2% 73.2%,
+          100% 34.9%,
+          92.5% 0.4%,
+          87.5% 0%,
+          75% 28.6%,
+          58.5% 54.6%,
+          50.1% 56.8%,
+          46.9% 44%,
+          48.3% 17.4%,
+          24.7% 53.9%,
+          0% 27.9%,
+          11.9% 74.2%,
+          24.9% 54.1%,
+          68.6% 100%,
+          74.8% 41.9%
+        );
+      "
+    ></div>
+  </div>
+  <div
+    class="absolute left-[max(45rem,calc(50%+8rem))] top-1/2 -z-10 -translate-y-1/2 transform-gpu blur-2xl"
+    aria-hidden="true"
+  >
+    <div
+      class="aspect-[577/310] w-[36.0625rem] bg-gradient-to-r from-[#ff80b5] to-[#9089fc] opacity-30"
+      style="
+        clip-path: polygon(
+          74.8% 41.9%,
+          97.2% 73.2%,
+          100% 34.9%,
+          92.5% 0.4%,
+          87.5% 0%,
+          75% 28.6%,
+          58.5% 54.6%,
+          50.1% 56.8%,
+          46.9% 44%,
+          48.3% 17.4%,
+          24.7% 53.9%,
+          0% 27.9%,
+          11.9% 74.2%,
+          24.9% 54.1%,
+          68.6% 100%,
+          74.8% 41.9%
+        );
+      "
+    ></div>
+  </div>
+  <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+    <p class="text-sm leading-6 text-gray-900">
+      <strong class="font-semibold">Février 2024</strong
+      ><svg
+        viewBox="0 0 2 2"
+        class="mx-2 inline h-0.5 w-0.5 fill-current"
+        aria-hidden="true"
+      >
+        <circle cx="1" cy="1" r="1" /></svg
+      >Bientôt disponible : retrouvez <i>{{ randomBook }}</i> sur nos étagères !
+    </p>
+    <a
+      href="#"
+      class="flex-none rounded-full bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-900"
+      >Adhérez aujourd'hui <span aria-hidden="true">&rarr;</span></a
+    >
+  </div>
+  <div class="flex flex-1 justify-end">
+    <button
+      type="button"
+      class="-m-3 p-3 focus-visible:outline-offset-[-4px]"
+      (click)="displayBanner = false"
+    >
+      <span class="sr-only">Dismiss</span>
+      <svg
+        class="h-5 w-5 text-gray-900"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"
+        />
+      </svg>
+    </button>
+  </div>
+</div>
+<app-header></app-header>
+
+<div style="position: relative">
+  <img
+    src="assets/Library.jpg"
+    alt="Library"
+    class="w-full object-cover h-[500px] lg:mb-[-50px]"
+    style="filter: brightness(0.5); z-index: -5"
+  />
+
+  <!-- Cadre blanc -->
+  <div
+    class="bg-white w-full lg:w-4/5 mx-auto lg:rounded-t-lg lg:absolute lg:bottom-0 lg:transform lg:translate-y-[50px] lg:z-1 lg:left-0 lg:right-0 lg:ml-auto lg:mr-auto"
+  >
+    <div class="grid lg:grid-cols-3 gap-4">
+      <!-- Card 1 -->
+      <div class="rounded overflow-hidden shadow-lg p-6">
+        <h2 class="font-bold text-xl mb-2">Le saviez-vous?</h2>
+        <p class="text-gray-700 text-base">
+          Le premier livre a mis environ 400 jours à être imprimé par Gutenberg,
+          utilisant près de 300 encres différentes! Aujourd'hui, certaines
+          presses peuvent imprimer 60 000 exemplaires de journal par heure!
+        </p>
+      </div>
+      <!-- Card 2 -->
+      <div class="rounded overflow-hidden shadow-lg p-6">
+        <h2 class="font-bold text-xl mb-2">Devenez bénévole !</h2>
+        <p class="text-gray-700 text-base">
+          Vous aimez les livres et souhaitez faire partager votre passion? Venez
+          faire la lecture aux enfants de la commune, le mercredi après-midi et
+          le samedi matin.
+        </p>
+      </div>
+      <!-- Card 3 -->
+      <div class="rounded overflow-hidden shadow-lg p-6">
+        <h2 class="font-bold text-xl mb-2">Journée Découverte</h2>
+        <p class="text-gray-700 text-base">
+          Votre bibliothèque vous accueille samedi 23 mars de 10h à 21h pour une
+          journée découverte. Comment les livres sont choisis et classés, quel
+          est le vrai travail d'un bibliothécaire... Venez voir l'envers du
+          décor!
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-white">
+  <div class="mx-auto max-w-7xl sm:px-6 sm:py-32 lg:px-8">
+    <div
+      class="relative isolate overflow-hidden bg-gray-900 px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0"
+    >
+      <svg
+        viewBox="0 0 1024 1024"
+        class="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] sm:left-full sm:-ml-80 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2 lg:translate-y-0"
+        aria-hidden="true"
+      >
+        <circle
+          cx="512"
+          cy="512"
+          r="512"
+          fill="url(#759c1415-0410-454c-8f7c-9a820de03641)"
+          fill-opacity="0.7"
+        />
+        <defs>
+          <radialGradient id="759c1415-0410-454c-8f7c-9a820de03641">
+            <stop stop-color="#7775D6" />
+            <stop offset="1" stop-color="#E935C1" />
+          </radialGradient>
+        </defs>
+      </svg>
+      <div
+        class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left"
+      >
+        <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          Devenez Adhérents<br />
+          accédez à nos centaines d'ouvrages, gratuitement!
+        </h2>
+        <p class="mt-6 text-lg leading-8 text-gray-300">
+          Apportez un justificatif de domicile et une carte d'identité à
+          l'accueil de la bilbiothèque pour vous enregistrer et recevoir votre
+          carte
+        </p>
+        <div
+          class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start"
+        >
+          <a
+            href="#"
+            class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            >Commencer mon dossier</a
+          >
+          <a href="#" class="text-sm font-semibold leading-6 text-white"
+            >En savoir plus <span aria-hidden="true">→</span></a
+          >
+        </div>
+      </div>
+      <div class="relative mt-16 h-80 lg:mt-8">
+        <img
+          class="absolute left-0 top-0 w-[40rem] max-w-none rounded-md bg-white/5 ring-1 ring-white/10"
+          src="assets/Library-2.jpg"
+          alt="App screenshot"
+          width="1824"
+          height="1080"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+  <div
+    class="relative isolate overflow-hidden bg-gray-900 px-6 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0"
+  >
+    <div
+      class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left"
+    >
+      <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+        Les horaires<br />
+        de la bibliothèque
+      </h2>
+      <p class="mt-6 text-lg leading-8 text-gray-300">
+        La bibliothèque est ouverte du mardi au samedi de 10h à 18h. Le mercredi
+        et le samedi, des animations sont proposées aux enfants.
+      </p>
+    </div>
+    <div
+      class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left"
+    >
+      <h2
+        class="text-xl font-bold tracking-tight text-white sm:text-2xl text-center"
+      >
+        La librairie est actuellement<br />
+        {{ isLibrairyOpen ? "🟢 ouverte" : "🔴 fermée" }}<br />
+      </h2>
+      <p class="mt-6 text-lg leading-8 text-gray-300 text-center">
+        Du mardi au vendredi <br />
+        10h - 12h / 14h - 18h <br />
+        Samedi au dimanche <br />
+        10h - 12h / 14h - 17h
+      </p>
+    </div>
+  </div>
+</div>

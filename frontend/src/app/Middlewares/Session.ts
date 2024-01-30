@@ -6,9 +6,13 @@ export default class Session {
   private static instance: Session;
   private _token: string;
   private _user: Member;
+  private _isOpen: boolean;
+
   private constructor() {
     this._token = '';
     this._user = {} as Member;
+    this._isOpen = false;
+    this.createInstance();
   }
   public static getInstance(): Session {
     if (!Session.instance) {
@@ -28,47 +32,72 @@ export default class Session {
   public set user(user: any) {
     this._user = user;
   }
+  public get isOpen(): boolean {
+    return this._isOpen;
+  }
+
+  private async createInstance() {
+    if (this.user) this._isOpen = true;
+    else if (!localStorage.getItem('token')) this._isOpen = false;
+    else {
+      this.token = localStorage.getItem('token') as string;
+      try {
+        await this.fetchUser();
+        this._isOpen = true;
+      } catch (err) {
+        this._isOpen = false;
+      }
+    }
+  }
 
   public async logout() {
     this.token = '';
     this.user = {} as Member;
+    this._isOpen = false;
+    localStorage.removeItem('token');
   }
 
-  public async restore() {
-    this.token = localStorage.getItem('token') || '';
-    if (this.token) {
-      await this.fetchUser();
-    }
-  }
+  public async login(email: string, password: string): Promise<boolean> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const res = await axios.post(API_URL('/login_check'), {
+          email: email,
+          password: password,
+        });
 
-  public async login(email: string, password: string) {
-    const res = await axios.post(API_URL('/login_check'), {
-      email: email,
-      password: password,
+        if (res.status != 200) {
+          throw new Error('Invalid credentials');
+        }
+
+        // Save the token
+        this.token = res.data.token;
+        localStorage.setItem('token', this.token);
+
+        await this.fetchUser();
+        resolve(true);
+      } catch (err) {
+        throw err;
+      }
     });
-
-    if (res.status === 401) {
-      throw new Error('Invalid credentials');
-    }
-
-    // Save the token
-    this.token = res.data.token;
-    localStorage.setItem('token', this.token);
-
-    this.fetchUser();
   }
 
   public async fetchUser() {
-    const res = await axios.get(API_URL('/user/me'), {
-      headers: { Authorization: `Bearer ${this.token}` },
-    });
+    try {
+      const res = await axios.get(API_URL('/user/me'), {
+        headers: { Authorization: `Bearer ${this.token}` },
+      });
 
-    const user = res.data;
-    this.user.id = user.id;
-    this.user.email = user.email;
-    this.user.firstname = user.firstname;
-    this.user.lastname = user.lastname;
-    this.user.role = this.getRoleEnum(user.roles);
+      const user = res.data;
+      this.user.id = user.id;
+      this.user.email = user.email;
+      this.user.firstname = user.firstname;
+      this.user.lastname = user.lastname;
+      this.user.role = this.getRoleEnum(user.roles);
+
+      this._isOpen = true;
+    } catch (err) {
+      throw err;
+    }
   }
 
   public getRoleEnum(role: string) {
