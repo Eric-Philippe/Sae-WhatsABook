@@ -21,7 +21,7 @@
 
 # Node
 **/node_modules
-npm-debug.log
+npm-debug.logP
 yarn-error.log
 
 # IDEs and editors
