@@ -1,9 +1,10 @@
 <li class="flex justify-between gap-x-6 py-5">
   <div class="flex min-w-0 gap-x-4">
     <img
-      class="h-12 w-12 flex-none rounded-sm bg-gray-50"
+      class="h-20 w-12 flex-none rounded-sm bg-gray-50"
       src="{{ book.coverLink }}"
       alt=""
+      style="object-fit: cover"
     />
     <div class="min-w-0 flex-auto">
       <p class="text-sm font-semibold leading-6 text-gray-900">
@@ -21,11 +22,40 @@
     <button class="text-sm font-medium text-gray-400 hover:text-gray-500">
       Consulter
     </button>
-    <div class="mt-1 flex items-center gap-x-1.5">
+    <div
+      *ngIf="book.reservations.length == 0 && book.loans.length == 0"
+      class="mt-1 flex items-center gap-x-1.5"
+    >
       <div class="flex-none rounded-full bg-emerald-500/20 p-1">
         <div class="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
       </div>
       <p class="text-xs leading-5 text-gray-500">Disponible</p>
+    </div>
+    <div
+      *ngIf="book.reservations.length != 0"
+      class="mt-1 flex items-center gap-x-1.5"
+    >
+      <div class="flex-none rounded-full bg-orange-500/20 p-1">
+        <div class="h-1.5 w-1.5 rounded-full bg-orange-500"></div>
+      </div>
+      <p class="text-xs leading-5 text-gray-500">Réservé</p>
+    </div>
+    <div
+      *ngIf="book.loans.length != 0"
+      class="mt-1 flex items-center gap-x-1.5"
+    >
+      <div class="flex-none rounded-full bg-red-500/20 p-1">
+        <div class="h-1.5 w-1.5 rounded-full bg-red-500"></div>
+      </div>
+      <p class="text-xs leading-5 text-gray-500">Emprunté</p>
+    </div>
+    <div class="flex flex-wrap mt-1">
+      <span
+        *ngFor="let category of book.categories"
+        class="inline-flex items-center mr-1 rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
+      >
+        {{ category.name }}
+      </span>
     </div>
   </div>
 </li>

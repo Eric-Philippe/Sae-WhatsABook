@@ -25,6 +25,10 @@
 - - [x] Pouvoir modifier son compte
 
 - [ ] Consultation des livres
+- - [x] Lister les livres
+- - [x] Filtrer les livres
+- - [ ] Consulter un livre
+- - [ ] "D'autres oeuvres de l'auteur"
 
 - [ ] Suggestions de livres
 

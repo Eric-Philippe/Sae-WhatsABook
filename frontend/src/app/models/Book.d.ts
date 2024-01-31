@@ -8,7 +8,7 @@ export type Book = {
   id: string;
   title: string;
   summary: string;
-  releaseDate: PhpDate;
+  releaseDate: string;
   language: string;
   coverLink: string;
   authors: Author[];

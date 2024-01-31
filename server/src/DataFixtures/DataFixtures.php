@@ -31,10 +31,10 @@ class DataFixtures extends Fixture
 
         // Génération des auteurs
         $auteurs = [];
-        $AUTHORS_COUNT = 50;
+        $AUTHORS_COUNT = 75;
         $uuids = Utils::generateUniqueUUIDs($AUTHORS_COUNT);
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < $AUTHORS_COUNT; $i++) {
             $isDead = $faker->boolean(75);
             $birthDate = $faker->dateTimeBetween("-200 years", "now");
             
