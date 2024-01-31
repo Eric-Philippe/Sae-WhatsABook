@@ -39,7 +39,9 @@
       <a routerLink="/" class="text-sm font-semibold leading-6 text-gray-900"
         >Accueil</a
       >
-      <a href="#" class="text-sm font-semibold leading-6 text-gray-900"
+      <a
+        routerLink="/consult"
+        class="text-sm font-semibold leading-6 text-gray-900"
         >Nos livres</a
       >
       <a href="#" class="text-sm font-semibold leading-6 text-gray-900"
@@ -64,7 +66,7 @@
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end" *ngIf="!isConnected">
       <a
-        routerLink="login"
+        routerLink="/login"
         class="text-sm font-semibold leading-6 text-gray-900"
         >S'identifier <span aria-hidden="true">&rarr;</span></a
       >
@@ -113,6 +115,11 @@
               >Accueil</a
             >
             <a
+              routerLink="/consult"
+              class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+              >Nos livres</a
+            >
+            <a
               href="#"
               class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
               >Suggérer un livre</a
@@ -130,7 +137,7 @@
           </div>
           <div class="py-6" *ngIf="!isConnected">
             <a
-              routerLink="login"
+              routerLink="/login"
               class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
               >S'identifier</a
             >

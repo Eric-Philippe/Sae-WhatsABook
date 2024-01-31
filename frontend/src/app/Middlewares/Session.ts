@@ -132,6 +132,10 @@ export default class Session {
     switch (role) {
       case 'ROLE_ADMIN':
         return 'ROLE_ADMIN';
+      case 'ROLE_STAFF':
+        return 'ROLE_STAFF';
+      case 'ROLE_MEMBER':
+        return 'ROLE_MEMBER';
       default:
         return null;
     }

@@ -21,7 +21,7 @@ class BookController extends AbstractController
         $book = $bookRepository->find($id);
     
         if ($book) {
-            $jsonBook = $serializer->serialize($book, 'json');
+            $jsonBook = $serializer->serialize($book, 'json', ['groups' => 'getBooks']);
             return new JsonResponse($jsonBook, Response::HTTP_OK, [], true);
         }
     
@@ -32,7 +32,7 @@ class BookController extends AbstractController
     public function getBookList(BookRepository $bookRepository, SerializerInterface $serializer): JsonResponse
     {
         $bookList = $bookRepository->findAll();
-        $jsonBookList = $serializer->serialize($bookList, 'json');
+        $jsonBookList = $serializer->serialize($bookList, 'json',  ['groups' => 'getBooks']);
         return new JsonResponse($jsonBookList, Response::HTTP_OK, [], true);
     }
 

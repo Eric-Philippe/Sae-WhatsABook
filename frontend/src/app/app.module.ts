@@ -12,6 +12,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AccountPage } from './Pages/Account/account.page';
 import { SupportPage } from './Pages/Support/support.page';
 import { NotFoundPage } from './Pages/404/notfound.page';
+import { ConsultPage } from './Pages/Consult/consult.page';
+import { BookCardComponent } from './Components/book-card/book-card.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { NotFoundPage } from './Pages/404/notfound.page';
     AccountPage,
     SupportPage,
     NotFoundPage,
+    ConsultPage,
+    BookCardComponent,
   ],
   imports: [
     BrowserModule,

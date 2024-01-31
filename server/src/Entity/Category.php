@@ -2,23 +2,27 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryRepositoy;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
-#[ORM\Entity(repositoryClass: CategoryRepositoy::class)]
+#[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
 {
     #[ORM\Id]
     #[ORM\Column(length: 36)]
+    #[Groups(["getBooks", "getCategories"])]
     private ?string $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(["getBooks", "getCategories"])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(["getBooks", "getCategories"])]
     private ?string $description = null;
 
-    #[ORM\ManyToMany(targetEntity: Book::class, mappedBy: 'category')]
+    #[ORM\ManyToMany(targetEntity: Book::class, mappedBy: 'categories')]
     private $books;
 
     public function getId(): ?string
@@ -57,7 +61,7 @@ class Category
         return $this;
     }
 
-    public function getBooks() 
+    public function getBooks(): iterable
     {
         return $this->books;
     }

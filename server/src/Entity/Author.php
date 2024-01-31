@@ -5,33 +5,42 @@ namespace App\Entity;
 use App\Repository\AuthorRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: AuthorRepository::class)]
 class Author
 {
     #[ORM\Id]
     #[ORM\Column(length: 36)]
+    #[Groups(["getBooks"])]
     private ?string $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(["getBooks"])]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(["getBooks"])]
     private ?string $firstname = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Groups(["getBooks"])]
     private ?\DateTimeInterface $birthDate = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Groups(["getBooks"])]
     private ?\DateTimeInterface $deathDate = null;
 
     #[ORM\Column(length: 50, nullable: true)]
+    #[Groups(["getBooks"])]
     private ?string $nationality = null;
 
     #[ORM\Column(length: 150)]
+    #[Groups(["getBooks"])]
     private ?string $photoLink = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(["getBooks"])]
     private ?string $description = null;
 
     #[ORM\ManyToMany(targetEntity: Book::class, mappedBy: 'authors')]

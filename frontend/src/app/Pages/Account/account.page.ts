@@ -70,7 +70,6 @@ export class AccountPage extends ProtectedPage {
       headers: { Authorization: `Bearer ${this.session?.token}` },
     });
     this.memberInfo = res.data;
-    console.log(this.memberInfo);
 
     this.changeInfoForm.patchValue({
       firstname: this.memberInfo.firstname,
