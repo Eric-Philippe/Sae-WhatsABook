@@ -46,7 +46,7 @@ export class AccountPage extends ProtectedPage {
   fakeKeyIcon = faKey;
   faLockIcon = faLock;
 
-  constructor(private router: Router, private fb: FormBuilder) {
+  constructor(router: Router, private fb: FormBuilder) {
     super(router);
     this.changeInfoForm = this.fb.group({
       firstname: ['', [Validators.required]],

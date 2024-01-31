@@ -91,7 +91,7 @@ class DataFixtures extends Fixture
         $livres = [];
 
  
-        for( $i = 0; $i < 100; $i++ ) {
+        for( $i = 0; $i < $BOOKS_COUNT; $i++ ) {
             $livre = (new Book())->setId($uuids[$i])
             ->setCoverLink("https://picsum.photos/360/360?image=".($i+1))
             ->setReleaseDate($faker->dateTime())

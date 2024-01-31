@@ -1,0 +1,282 @@
+<app-header></app-header>
+<hr style="border-top: 1px solid #ccc" />
+
+<img
+  src="assets/suggest.jpg"
+  alt="Library"
+  class="h-[400px] w-full object-cover"
+/>
+<div
+  class="transition-all duration-500 ease-in-out mt-8 mx-auto lg:mt-16 lg:px-32 px-8 lg:flex"
+>
+  <form class="lg:w-1/2" (ngSubmit)="onSubmit()" [formGroup]="suggestForm">
+    <div class="space-y-12">
+      <div class="border-b-4 border-orange-500/50 pb-12">
+        <h2 class="text-4xl font-semibold leading-7 text-gray-900">
+          Suggérer un livre
+        </h2>
+        <p class="mt-4 text-sm leading-6 text-gray-600">
+          Envie de lire un livre qui n'est pas dans notre bibliothèque ?
+          Suggérez-le nous !
+        </p>
+      </div>
+      <div class="space-y-8">
+        <div class="relative" *ngIf="success">
+          <div class="bg-green-500 p-4 rounded-lg shadow-md mb-4 mt-8">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="w-6 h-6 mr-2"></div>
+                <div class="text-white">
+                  <p class="text-lg font-semibold">Succés!</p>
+                  <p>Le livre a bien été suggéré !</p>
+                </div>
+              </div>
+              <button
+                class="text-gray-200 hover:text-gray-400 focus:outline-none"
+                aria-label="Close"
+                (click)="success = false"
+              >
+                <svg
+                  class="w-4 h-4 fill-current"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M6 18L18 6M6 6l12 12"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="space-y-1">
+            <label
+              for="title"
+              class="block text-sm font-medium leading-5 text-gray-700"
+              >Titre</label
+            >
+            <div class="relative rounded-md shadow-sm">
+              <input
+                id="title"
+                class="form-input block w-full sm:text-sm sm:leading-5 rounded-md"
+                placeholder="Titre"
+                formControlName="title"
+              />
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="space-y-1">
+            <label
+              for="author"
+              class="block text-sm font-medium leading-5 text-gray-700"
+              >Auteur</label
+            >
+            <div class="relative rounded-md shadow-sm">
+              <input
+                id="author"
+                class="form-input block w-full sm:text-sm sm:leading-5 rounded-md"
+                placeholder="Auteur"
+                formControlName="author"
+              />
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="space-y-1">
+            <label
+              for="editor"
+              class="block text-sm font-medium leading-5 text-gray-700"
+              >Éditeur</label
+            >
+            <div class="relative rounded-md shadow-sm">
+              <input
+                id="editor"
+                class="form-input block w-full sm:text-sm sm:leading-5 rounded-md"
+                placeholder="Éditeur"
+                formControlName="editor"
+              />
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="space-y-1">
+            <label
+              for="year"
+              class="block text-sm font-medium leading-5 text-gray-700"
+              >Année de publication</label
+            >
+            <div class="relative rounded-md shadow-sm">
+              <input
+                id="year"
+                class="form-input block w-full sm:text-sm sm:leading-5 rounded-md"
+                placeholder="Année de publication"
+                formControlName="releaseDate"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="space-y-1">
+            <label
+              for="description"
+              class="block text-sm font-medium leading-5 text-gray-700"
+              >Description</label
+            >
+            <div class="relative rounded-md shadow-sm">
+              <textarea
+                id="description"
+                rows="4"
+                class="form-input block w-full sm:text-sm sm:leading-5 rounded-md"
+                placeholder="Description du livre"
+                formControlName="description"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="space-y-1">
+            <label
+              for="description"
+              class="block text-sm font-medium leading-5 text-gray-700"
+              >Appuyez votre demande</label
+            >
+            <div class="relative rounded-md shadow-sm">
+              <textarea
+                id="details"
+                rows="4"
+                class="form-input block w-full sm:text-sm sm:leading-5 rounded-md"
+                placeholder="Pourquoi voulez-vous lire ce livre ?"
+                formControlName="details"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span
+            *ngIf="!isConnected"
+            class="text-sm font-medium leading-5 text-gray-700"
+          >
+            Vous devez être connecté pour pouvoir suggérer un livre.
+          </span>
+        </div>
+        <div>
+          <span class="inline-flex rounded-md shadow-sm">
+            <button
+              *ngIf="isConnected"
+              type="submit"
+              class="inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-orange-600 hover:bg-orange-500 focus:outline-none focus:border-orange-700 focus:shadow-outline-orange active:bg-orange-700 transition ease-in-out duration-150"
+            >
+              Envoyer
+            </button>
+            <button
+              *ngIf="!isConnected"
+              type="button"
+              class="inline-flex -mt-10 mb-10 items-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-orange-600 opacity-50 cursor-not-allowed focus:outline-none focus:border-orange-700 focus:shadow-outline-orange active:bg-orange-700 transition ease-in-out duration-150"
+            >
+              Envoyer
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="lg:pr-8 lg:ml-32 lg:pt-4 lg:w-1/2">
+    <div class="lg:max-w-lg">
+      <h2 class="text-base font-semibold leading-7 text-orange-600">
+        Découvrez plus rapidement
+      </h2>
+      <p
+        class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+      >
+        Une meilleure expérience de recommandation
+      </p>
+      <p class="mt-6 text-lg leading-8 text-gray-600">
+        Explorez une nouvelle manière de découvrir des livres captivants grâce à
+        notre système de recommandation avancé. Nous avons repensé le processus
+        pour vous offrir une expérience exceptionnelle.
+      </p>
+      <dl
+        class="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none"
+      >
+        <div class="relative pl-9">
+          <dt class="inline font-semibold text-gray-900">
+            <svg
+              class="absolute left-1 top-1 h-5 w-5 text-orange-600"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M5.5 17a4.5 4.5 0 01-1.44-8.765 4.5 4.5 0 018.302-3.046 3.5 3.5 0 014.504 4.272A4 4 0 0115 17H5.5zm3.75-2.75a.75.75 0 001.5 0V9.66l1.95 2.1a.75.75 0 101.1-1.02l-3.25-3.5a.75.75 0 00-1.1 0l-3.25 3.5a.75.75 0 101.1 1.02l1.95-2.1v4.59z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            Un livre que vous avez aimé ? Que vous voulez lire, partager ?
+          </dt>
+          <dd class="inline">
+            Partagez nous vos envies et peut-être que vous pourrez bientôt
+            l'emprunter chez nous ! Entrez les informations permettant
+            d'identifier le livre et nous nous occupons du reste.
+          </dd>
+        </div>
+        <div class="relative pl-9">
+          <dt class="inline font-semibold text-gray-900">
+            <svg
+              class="absolute left-1 top-1 h-5 w-5 text-orange-600"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            Notre équipe s'occupe de tout !
+          </dt>
+          <dd class="inline">
+            Nous nous occupons alors de consulter les informations du livre et
+            de l'ajouter par la suite à notre bibliothèque. Cette étape
+            intémédiaire permet de vérifier que le livre est bien disponible à
+            la vente et également de vérifier que le livre n'est pas déjà
+            présent dans notre bibliothèque.
+          </dd>
+        </div>
+        <div class="relative pl-9">
+          <dt class="inline font-semibold text-gray-900">
+            <svg
+              class="absolute left-1 top-1 h-5 w-5 text-orange-600"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M4.632 3.533A2 2 0 016.577 2h6.846a2 2 0 011.945 1.533l1.976 8.234A3.489 3.489 0 0016 11.5H4c-.476 0-.93.095-1.344.267l1.976-8.234z"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M4 13a2 2 0 100 4h12a2 2 0 100-4H4zm11.24 2a.75.75 0 01.75-.75H16a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75h-.01a.75.75 0 01-.75-.75V15zm-2.25-.75a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75H13a.75.75 0 00.75-.75V15a.75.75 0 00-.75-.75h-.01z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            Vous êtes notifié dès que le livre est disponible
+          </dt>
+          <dd class="inline">
+            Une fois le livre ajouté à notre bibliothèque, vous recevez une
+            notification par mail vous informant que le livre est disponible à
+            l'emprunt. Vous pouvez alors venir le chercher à la bibliothèque.
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</div>
