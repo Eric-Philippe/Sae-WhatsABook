@@ -21,8 +21,8 @@
 - [x] Login Page
 
 - [x] Account Page
-- - [ ] Pouvoir modifier son mot de passe
-- - [ ] Pouvoir modifier son compte
+- - [x] Pouvoir modifier son mot de passe
+- - [x] Pouvoir modifier son compte
 
 - [ ] Consultation des livres
 

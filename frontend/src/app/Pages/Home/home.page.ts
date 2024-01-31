@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import Session from '../../Middlewares/Session';
 
@@ -19,8 +19,6 @@ export class HomePage {
   randomBook = RANDOM_BOOKS[Math.floor(Math.random() * RANDOM_BOOKS.length)];
   displayBanner = true;
   isLibrairyOpen = false;
-
-  session = Session.getInstance();
 
   constructor() {
     // La bibliothèque est ouverte du mardi au vendredi de 10h à 12h / 14h à 18h et le samedi de 10h à 12h / 14h à 17h

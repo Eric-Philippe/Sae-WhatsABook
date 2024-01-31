@@ -11,9 +11,12 @@ import Session from 'src/app/Middlewares/Session';
 export class LoginPage implements OnInit {
   loginForm: FormGroup;
   wrongCredentials = false;
+  session: Session | null = null;
 
-  ngOnInit(): void {
-    Session.getInstance().isOpen ? this.router.navigate(['/']) : null;
+  async ngOnInit(): Promise<void> {
+    // Session.getInstance().isOpen ? this.router.navigate(['/']) : null;
+    this.session = await Session.getInstance();
+    this.session.isOpen ? this.router.navigate(['/']) : null;
   }
 
   constructor(private router: Router, private fb: FormBuilder) {
@@ -32,7 +35,7 @@ export class LoginPage implements OnInit {
     }
 
     try {
-      await Session.getInstance().login(email, password);
+      await this.session?.login(email, password);
       this.loginForm.reset();
       this.router.navigate(['/']);
     } catch (err) {

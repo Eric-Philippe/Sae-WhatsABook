@@ -7,19 +7,30 @@ export default class Session {
   private _token: string;
   private _user: Member;
   private _isOpen: boolean;
+  private _fetchUserPromise: Promise<boolean> | null;
 
   private constructor() {
     this._token = '';
     this._user = {} as Member;
     this._isOpen = false;
-    this.createInstance();
+    this._fetchUserPromise = null;
   }
-  public static getInstance(): Session {
-    if (!Session.instance) {
-      Session.instance = new Session();
-    }
-    return Session.instance;
+
+  public static async getInstance(): Promise<Session> {
+    return new Promise(async (resolve, reject) => {
+      if (!Session.instance) {
+        Session.instance = new Session();
+        await Session.instance.createInstance();
+      }
+
+      if (Session.instance._fetchUserPromise) {
+        await Session.instance._fetchUserPromise; // Attendez la promesse fetchUser si elle existe
+      }
+
+      resolve(Session.instance);
+    });
   }
+
   public get token(): string {
     return this._token;
   }
@@ -33,21 +44,31 @@ export default class Session {
     this._user = user;
   }
   public get isOpen(): boolean {
+    if (this.user.id == undefined) this._isOpen = false;
     return this._isOpen;
   }
 
-  private async createInstance() {
-    if (this.user) this._isOpen = true;
-    else if (!localStorage.getItem('token')) this._isOpen = false;
-    else {
-      this.token = localStorage.getItem('token') as string;
-      try {
-        await this.fetchUser();
-        this._isOpen = true;
-      } catch (err) {
-        this._isOpen = false;
+  private async createInstance(): Promise<void> {
+    return new Promise(async (resolve, reject) => {
+      if (this.user.id != null) this._isOpen = false;
+
+      let token = localStorage.getItem('token');
+
+      if (token != null) {
+        this.token = localStorage.getItem('token') as string;
+        try {
+          this._fetchUserPromise = this.fetchUser(); // Stockez la promesse fetchUser
+          await this._fetchUserPromise; // Attendez la promesse fetchUser
+          this._isOpen = true;
+          resolve();
+        } catch (err) {
+          this._isOpen = false;
+          reject(err);
+        } finally {
+          this._fetchUserPromise = null; // Réinitialisez la promesse après son exécution
+        }
       }
-    }
+    });
   }
 
   public async logout() {
@@ -81,23 +102,30 @@ export default class Session {
     });
   }
 
-  public async fetchUser() {
-    try {
-      const res = await axios.get(API_URL('/user/me'), {
-        headers: { Authorization: `Bearer ${this.token}` },
-      });
+  public async fetchUser(): Promise<boolean> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const res = await axios.get(API_URL('/user/me'), {
+          headers: { Authorization: `Bearer ${this.token}` },
+        });
 
-      const user = res.data;
-      this.user.id = user.id;
-      this.user.email = user.email;
-      this.user.firstname = user.firstname;
-      this.user.lastname = user.lastname;
-      this.user.role = this.getRoleEnum(user.roles);
+        const user = res.data;
+        this.user.id = user.id;
+        this.user.email = user.email;
+        this.user.firstname = user.firstname;
+        this.user.lastname = user.lastname;
+        this.user.role = this.getRoleEnum(user.roles);
 
-      this._isOpen = true;
-    } catch (err) {
-      throw err;
-    }
+        this._isOpen = true;
+        resolve(true);
+      } catch (err) {
+        reject(false);
+      }
+    });
+  }
+
+  public updateUser(user: Member) {
+    this.user = user;
   }
 
   public getRoleEnum(role: string) {
