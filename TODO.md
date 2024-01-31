@@ -16,7 +16,7 @@
 - [ ] Footer
 
 - [x] Welcome Page
-- - [ ] Ajouter une carte interactive
+- - [x] Ajouter une carte interactive
 
 - [x] Login Page
 
@@ -30,7 +30,8 @@
 - - [ ] Consulter un livre
 - - [ ] "D'autres oeuvres de l'auteur"
 
-- [ ] Suggestions de livres
+- [x] Suggestions de livres
+- - [ ] Brancher le front au back
 
 - [ ] Contact Page
 
