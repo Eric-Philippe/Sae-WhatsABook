@@ -96,7 +96,7 @@ class DataFixtures extends Fixture
             ->setCoverLink("https://picsum.photos/360/360?image=".($i+1))
             ->setReleaseDate($faker->dateTime())
             ->setTitle($faker->sentence(3))
-            ->setSummary($faker->paragraph(2))
+            ->setSummary($faker->paragraph(6))
             ->setLanguage($faker->randomElement($langues))
             ->setCategories($faker->randomElements($categories, $faker->numberBetween(1, 3)))
             ->setAuthors($faker->randomElements($auteurs, $faker->numberBetween(1,2)))

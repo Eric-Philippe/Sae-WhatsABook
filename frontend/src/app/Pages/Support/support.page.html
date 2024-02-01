@@ -1,1 +1,217 @@
-<h1>Works Well</h1>
+<app-header></app-header>
+<hr style="border-top: 1px solid #ccc" />
+
+<img
+  src="assets/support.jpg"
+  alt="Library"
+  class="h-[400px] w-full object-cover"
+/>
+<div
+  class="transition-all duration-500 ease-in-out mt-8 mx-auto lg:mt-16 lg:px-32 px-8 lg:flex"
+>
+  <form class="lg:w-1/2" (ngSubmit)="onSubmit()" [formGroup]="suggestForm">
+    <div class="space-y-12">
+      <div class="border-b-4 border-orange-500/50 pb-12">
+        <h2 class="text-4xl font-semibold leading-7 text-gray-900">
+          Bienvenue sur le support !
+        </h2>
+        <p class="mt-4 text-sm leading-6 text-gray-600">
+          Une interrogation ? Une suggestion ? Une demande ? N'hésitez pas à
+          nous contacter !
+        </p>
+      </div>
+      <div class="space-y-8">
+        <div class="relative" *ngIf="success">
+          <div class="bg-green-500 p-4 rounded-lg shadow-md mb-4 mt-8">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="w-6 h-6 mr-2"></div>
+                <div class="text-white">
+                  <p class="text-lg font-semibold">Succés!</p>
+                  <p>
+                    Votre demande de support a bien été envoyée, et une réponse
+                    vous sera apportée dans les plus brefs délais.
+                  </p>
+                </div>
+              </div>
+              <button
+                class="text-gray-200 hover:text-gray-400 focus:outline-none"
+                aria-label="Close"
+                (click)="success = false"
+              >
+                <svg
+                  class="w-4 h-4 fill-current"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M6 18L18 6M6 6l12 12"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="space-y-1">
+            <label
+              for="topic"
+              class="block text-sm font-medium leading-5 text-gray-700"
+              >Objet</label
+            >
+            <div class="relative rounded-md shadow-sm">
+              <input
+                id="topic"
+                class="form-input block w-full sm:text-sm sm:leading-5 rounded-md"
+                placeholder="Sujet de votre demande de support"
+                formControlName="topic"
+              />
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="space-y-1">
+            <label
+              for="category"
+              class="block text-sm font-medium leading-5 text-gray-700"
+              >Catégorie de votre demande</label
+            >
+            <div class="relative rounded-md shadow-sm">
+              <select
+                id="category"
+                formControlName="category"
+                class="form-select block w-full sm:text-sm sm:leading-5 rounded-md"
+              >
+                <option value="1" selected>Demande de support</option>
+                <option value="2">Demande de partenariat</option>
+                <option value="3">Demande de renseignement</option>
+                <option value="4">Demande de suggestion</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="space-y-1">
+            <label
+              for="email"
+              class="block text-sm font-medium leading-5 text-gray-700"
+              >Votre email</label
+            >
+            <div class="relative rounded-md shadow-sm">
+              <fieldset [disabled]="email != null">
+                <input
+                  id="email"
+                  class="form-input block w-full sm:text-sm sm:leading-5 rounded-md {{email != null ? 'bg-gray-200' : ''}}"
+                  placeholder="{{email == null ? 'Merci de mettre votre email': ''}}"
+                  [value]="email ? email : ''"
+                  formControlName="email"
+                />
+              </fieldset>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="space-y-1">
+            <label
+              for="description"
+              class="block text-sm font-medium leading-5 text-gray-700"
+              >Description</label
+            >
+            <div class="relative rounded-md shadow-sm">
+              <textarea
+                id="description"
+                rows="4"
+                class="form-input block w-full sm:text-sm sm:leading-5 rounded-md"
+                placeholder="Description de votre demande"
+                formControlName="description"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span class="inline-flex rounded-md shadow-sm">
+            <button
+              type="submit"
+              class="inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-orange-600 hover:bg-orange-500 focus:outline-none focus:border-orange-700 focus:shadow-outline-orange active:bg-orange-700 transition ease-in-out duration-150"
+            >
+              Envoyer
+            </button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="lg:pr-8 lg:ml-32 lg:pt-4 lg:w-1/2">
+    <div class="lg:max-w-lg">
+      <h2 class="text-base font-semibold leading-7 text-orange-600">
+        Besoin d'aide ?
+      </h2>
+      <p
+        class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+      >
+        Nous sommes là pour vous !
+      </p>
+      <p class="mt-6 text-lg leading-8 text-gray-600">
+        Vous avez une question ? Vous avez besoin d'aide ? Vous avez une
+        suggestion ? N'hésitez pas à nous contacter, nous vous répondrons dans
+        les plus brefs délais.
+      </p>
+      <dl
+        class="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none"
+      >
+        <div class="relative pl-9">
+          <dt class="inline font-semibold text-gray-900">
+            <fa-icon
+              class="absolute left-1 top-1 h-5 w-5 text-orange-600"
+              [icon]="faHandshake"
+            ></fa-icon>
+            Comment emprunter un livre ?
+          </dt>
+          <dd class="inline">
+            Afin d'emprunter un livre à la librairie
+            <strong>What's a Book</strong>, il vous suffit de vous rendre sur
+            place et de devenir adhérent. C'est gratuit ! Vous désirez prendre
+            de l'avance ? C'est possible, rendez-vous dans la section
+            <a routerLink="/adherent">Adhérent</a> et remplissez le formulaire
+            d'introduction à votre inscription.
+          </dd>
+        </div>
+        <div class="relative pl-9">
+          <dt class="inline font-semibold text-gray-900">
+            <fa-icon
+              class="absolute left-1 top-1 h-5 w-5 text-orange-600"
+              [icon]="faClock"
+            ></fa-icon>
+            Combien de temps puis-je emprunter un livre ?
+          </dt>
+          <dd class="inline">
+            Vous pouvez emprunter un livre pour une durée de 3 semaines. Vous
+            pouvez prolonger cette durée de 3 semaines supplémentaires si vous
+            le souhaitez. Un livre est déjà emprunté ? Pas de problème ! Vous
+            avez la possibilité de réserver un livre déjà emprunté, il vous sera
+            alors automatiquement attribué dès qu'il sera disponible si vous
+            venez alors sur place !
+          </dd>
+        </div>
+        <div class="relative pl-9">
+          <dt class="inline font-semibold text-gray-900">
+            <fa-icon
+              class="absolute left-1 top-1 h-5 w-5 text-orange-600"
+              [icon]="faSchool"
+            ></fa-icon>
+            Étudiant, quels sont mes avantages ?
+          </dt>
+          <dd class="inline">
+            Devenez adhérent en rajoutant dans vos justificatifs votre carte, et
+            recevez un abonnement grauit à notre Magazine en ligne "But, Really,
+            What's a Book ?"
+          </dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</div>

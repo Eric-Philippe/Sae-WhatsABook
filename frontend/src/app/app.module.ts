@@ -15,6 +15,8 @@ import { NotFoundPage } from './Pages/404/notfound.page';
 import { ConsultPage } from './Pages/Consult/consult.page';
 import { BookCardComponent } from './Components/book-card/book-card.component';
 import { SuggestPage } from './Pages/Suggest/suggest.page';
+import { ConsultBookPage } from './Pages/ConsultBook/consultbook.page';
+import { ReviewCardComponent } from './Components/review-card/review-card.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +31,8 @@ import { SuggestPage } from './Pages/Suggest/suggest.page';
     ConsultPage,
     BookCardComponent,
     SuggestPage,
+    ConsultBookPage,
+    ReviewCardComponent,
   ],
   imports: [
     BrowserModule,

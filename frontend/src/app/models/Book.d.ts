@@ -1,6 +1,5 @@
 import { Author } from './Author';
 import { Category } from './Category';
-import { PhpDate } from './FullMember';
 import { Loan } from './Loan';
 import { Reservation } from './Reservation';
 

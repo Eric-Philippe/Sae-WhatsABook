@@ -7,6 +7,7 @@ import { SupportPage } from './Pages/Support/support.page';
 import { NotFoundPage } from './Pages/404/notfound.page';
 import { ConsultPage } from './Pages/Consult/consult.page';
 import { SuggestPage } from './Pages/Suggest/suggest.page';
+import { ConsultBookPage } from './Pages/ConsultBook/consultbook.page';
 
 const routes: Routes = [
   { path: '', component: HomePage },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'support', component: SupportPage },
   { path: 'consult', component: ConsultPage },
   { path: 'suggest', component: SuggestPage },
+  { path: 'consult/:id', component: ConsultBookPage },
   { path: '**', component: NotFoundPage },
 ];
 
