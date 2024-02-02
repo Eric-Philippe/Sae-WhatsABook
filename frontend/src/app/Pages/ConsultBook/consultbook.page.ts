@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import axios from 'axios';
 
@@ -16,12 +16,14 @@ import ReviewGenerator from 'src/app/utils/ReviewGenerator';
 export class ConsultBookPage implements OnInit {
   session!: Session;
   isConnected = false;
-  book: Book = {} as Book;
+  book: Book = { loans: [{}] } as Book;
   isFlipped = true;
   starCount = [0];
   noStarCount = [0];
   reviews = ReviewGenerator.generateRandomReviews(2);
   putOnHoldPopUp = false;
+  myReservations: { id: string; dateResa: string; book: Book }[] = [];
+  success = false;
 
   flipBook() {
     this.isFlipped = !this.isFlipped;
@@ -32,8 +34,10 @@ export class ConsultBookPage implements OnInit {
   async ngOnInit(): Promise<void> {
     this.session = await Session.getInstance();
     this.isConnected = this.session.isOpen;
+    this.init();
+  }
 
-    // Get the id from http://localhost:4200/consult/00c081e5-46c8-4507-8982-197dd634755d
+  async init() {
     const id = this.route.snapshot.paramMap.get('id');
 
     let res = await axios.get(API_URL('/books/' + id));
@@ -51,7 +55,7 @@ export class ConsultBookPage implements OnInit {
           },
         }
       );
-      console.log(res.data);
+      this.myReservations = res.data;
     }
   }
 
@@ -65,5 +69,33 @@ export class ConsultBookPage implements OnInit {
   getStrDate(): string {
     const date = new Date(this.book.releaseDate);
     return date.toLocaleDateString();
+  }
+
+  async submitReservation() {
+    if (this.myReservations.length >= 3) return;
+    const userId = this.session.user?.id;
+    if (!userId) return;
+    const bookId = this.book.id;
+    try {
+      const res = await axios.post(
+        API_URL('/reservations/create'),
+        {
+          userId: userId,
+          bookId: bookId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${this.session.token}`,
+          },
+        }
+      );
+      if (res.status === 201) {
+        this.init();
+        this.success = true;
+      } else {
+      }
+
+      this.putOnHoldPopUp = false;
+    } catch (error) {}
   }
 }

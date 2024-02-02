@@ -59,7 +59,7 @@ class Member implements PasswordAuthenticatedUserInterface, UserInterface
 
     #[ORM\OneToMany(mappedBy: 'member', targetEntity: Reservation::class, orphanRemoval: true)]
     #[ORM\OrderBy(['createdAt' => 'ASC'])]
-    private $reservations;
+    private $reservation;
     #[ORM\OneToMany(mappedBy: 'member', targetEntity: Loan::class, orphanRemoval: true)]
     #[ORM\OrderBy(['loanDate' => 'ASC'])]
     private $loans;
@@ -208,14 +208,14 @@ class Member implements PasswordAuthenticatedUserInterface, UserInterface
         return $this;
     }
 
-    public function getReservations()
+    public function getReservation()
     {
-        return $this->reservations;
+        return $this->reservation;
     }
 
-    public function setReservations($reservations): static
+    public function setReservations($reservation): static
     {
-        $this->reservations = $reservations;
+        $this->reservation = $reservation;
         return $this;
     }
 

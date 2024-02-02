@@ -29,7 +29,7 @@
       *ngIf="book.reservation === null && book.loans.length == 0"
       class="mt-1 flex items-center gap-x-1.5"
     >
-      <div class="flex-none rounded-full bg-emerald-500/20 p-1">
+      <div class="flex-none rounded-full bg-emerald-500/20 p-1 animate-pulse">
         <div class="h-1.5 w-1.5 rounded-full bg-emerald-500"></div>
       </div>
       <p class="text-xs leading-5 text-gray-500">Disponible</p>
@@ -38,7 +38,7 @@
       *ngIf="book.reservation != null"
       class="mt-1 flex items-center gap-x-1.5"
     >
-      <div class="flex-none rounded-full bg-orange-500/20 p-1">
+      <div class="flex-none rounded-full bg-orange-500/20 p-1 animate-pulse">
         <div class="h-1.5 w-1.5 rounded-full bg-orange-500"></div>
       </div>
       <p class="text-xs leading-5 text-gray-500">Réservé</p>
@@ -47,7 +47,7 @@
       *ngIf="book.loans.length != 0"
       class="mt-1 flex items-center gap-x-1.5"
     >
-      <div class="flex-none rounded-full bg-red-500/20 p-1">
+      <div class="flex-none rounded-full bg-red-500/20 p-1 animate-pulse">
         <div class="h-1.5 w-1.5 rounded-full bg-red-500"></div>
       </div>
       <p class="text-xs leading-5 text-gray-500">Emprunté</p>

@@ -28,12 +28,13 @@
 - - [x] Pouvoir modifier son compte
 - - [ ] Si un livre récemment emprunté, déposer un commentaire
 
-- [w] Consultation des livres
+- [x] Consultation des livres
 - - [x] Lister les livres
 - - [x] Filtrer les livres
 - - [x] Consulter un livre
-- - - [ ] Obtenir la réservation / emprunt
-- - - [ ] "Pouvoir réserver, emprunter"
+- - - [x] Obtenir la réservation / emprunt
+- - - [x] "Pouvoir réserver, emprunter"
+- - - [ ] Envoyer un mail de confirmation
 - - [ ] "D'autres oeuvres de l'auteur"
 
 - [x] Suggestions de livres
@@ -45,6 +46,8 @@
 - - [ ] Brancher le front au back
 
 - [ ] Devenir Adhérent
+
+- [ ] Mes Emprunts et Réservations
 
 # BackOffice
 

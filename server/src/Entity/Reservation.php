@@ -19,12 +19,12 @@ class Reservation
     #[Groups(['getBooks', 'getMemberReservation', 'getBookReservation'])]
     private ?\DateTimeInterface $dateResa = null;
 
-    #[ORM\OneToOne(targetEntity: Book::class, inversedBy: 'reservations')]
+    #[ORM\OneToOne(targetEntity: Book::class, inversedBy: 'reservation')]
     #[ORM\JoinColumn(name: 'book_id', referencedColumnName: 'id')]
     #[Groups(['getMemberReservation'])]
     private $book;
 
-    #[ORM\ManyToOne(targetEntity: Member::class, inversedBy: 'reservations')]
+    #[ORM\ManyToOne(targetEntity: Member::class, inversedBy: 'reservation')]
     #[ORM\JoinColumn(name: 'member_id', referencedColumnName: 'id')]
     #[Groups(['getBookReservation'])]
     private ?Member $member = null;

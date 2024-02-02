@@ -55,8 +55,18 @@
         >Support</a
       >
 
-      <a href="#" class="text-sm font-semibold leading-6 text-gray-900"
+      <a
+        *ngIf="!isConnected"
+        routerLink="/adherent"
+        class="text-sm font-semibold leading-6 text-gray-900"
         >Devenir Adhérent</a
+      >
+
+      <a
+        *ngIf="isConnected"
+        routerLink="/selection"
+        class="text-sm font-semibold leading-6 text-gray-900"
+        >Ma séléction</a
       >
     </div>
     <div class="hidden lg:flex lg:flex-1 lg:justify-end" *ngIf="isConnected">
@@ -132,9 +142,17 @@
               >Support</a
             >
             <a
-              href="#"
+              *ngIf="!isConnected"
+              routerLink="/adherent"
               class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
               >Devenir Adhérent</a
+            >
+
+            <a
+              *ngIf="isConnected"
+              routerLink="/selection"
+              class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+              >Ma séléction</a
             >
           </div>
           <div class="py-6" *ngIf="!isConnected">
