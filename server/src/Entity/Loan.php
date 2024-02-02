@@ -5,25 +5,26 @@ namespace App\Entity;
 use App\Repository\LoanRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: LoanRepository::class)]
 class Loan
 {
     #[ORM\Id]
     #[ORM\Column(length: 36)]
+    #[Groups(['getBooks'])]
     private ?string $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups(['getBooks'])]
     private ?\DateTimeInterface $loanDate = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Groups(['getBooks'])]
     private ?\DateTimeInterface $returnDate = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $maxDateReturnLimit = null;
-
     #[ORM\ManyToOne(targetEntity: Book::class, inversedBy: 'loan')]
-    #[ORM\JoinColumn(name: 'loan_id', referencedColumnName: 'id')]
+    #[ORM\JoinColumn(name: 'book_id', referencedColumnName: 'id')]
     private $book;
 
     #[ORM\ManyToOne(targetEntity: Member::class, inversedBy: 'loans')]
@@ -34,45 +35,33 @@ class Loan
     {
         return $this->id;
     }
-    public function setIdEmp(string $idEmp): static
+    public function setId(string $id): static
     {
-        $this->id = $idEmp;
+        $this->id = $id;
 
         return $this;
     }
 
-    public function getDateEmprunt(): ?\DateTimeInterface
+    public function getLoanDate(): ?\DateTimeInterface
     {
         return $this->loanDate;
     }
 
-    public function setDateEmprunt(\DateTimeInterface $dateEmprunt): static
+    public function setLoanDate(\DateTimeInterface $dateEmprunt): static
     {
         $this->loanDate = $dateEmprunt;
 
         return $this;
     }
 
-    public function getDateRetour(): ?\DateTimeInterface
+    public function getReturnDate(): ?\DateTimeInterface
     {
         return $this->returnDate;
     }
 
-    public function setDateRetour(\DateTimeInterface $dateRetour): static
+    public function setReturnDate(\DateTimeInterface $dateRetour): static
     {
         $this->returnDate = $dateRetour;
-
-        return $this;
-    }
-
-    public function getDateRetourLimite(): ?\DateTimeInterface
-    {
-        return $this->maxDateReturnLimit;
-    }
-
-    public function setDateRetourLimite(\DateTimeInterface $dateRetourLimite): static
-    {
-        $this->maxDateReturnLimit = $dateRetourLimite;
 
         return $this;
     }

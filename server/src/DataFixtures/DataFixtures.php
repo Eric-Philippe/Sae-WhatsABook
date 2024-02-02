@@ -14,6 +14,7 @@ use App\Entity\Book;
 use App\Entity\Member;
 use App\Entity\Role;
 use App\Entity\Reservation;
+use App\Entity\Loan;
 
 use App\Utils\Utils;
 
@@ -213,6 +214,44 @@ class DataFixtures extends Fixture
 
             $reservations[] = $reservation;
             $manager->persist($reservation);
+            $alreadyReservedBook[] = $bookNotAlreayReserved;
+        }
+
+        $manager->flush();
+
+        $bookNotAlreayReserved = null;
+        do {
+            $bookNotAlreayReserved = $livres[$faker->numberBetween(0, $BOOKS_COUNT-1)];
+        } while (in_array($bookNotAlreayReserved, $alreadyReservedBook));
+
+        $myLoan = new Loan();
+        $myLoan->setId(Utils::generateUUID())
+            ->setBorrowedBook($bookNotAlreayReserved)
+            ->setLoanDate(new \DateTime("2024-02-02"))
+            ->setMember($member_admin)
+            ;
+
+        $manager->persist($myReservation);
+
+        $alreadyReservedBook[] = $bookNotAlreayReserved;
+
+        $loans =  [];
+        $LOANS_COUNT = 10;
+        $uuids = Utils::generateUniqueUUIDs($LOANS_COUNT);
+        for ($i = 0; $i < $LOANS_COUNT; $i++) {
+            // Get a random book from the list of books that is not in the alreadyReservedBook list
+            $bookNotAlreayReserved = null;
+            do {
+                $bookNotAlreayReserved = $livres[$faker->numberBetween(0, $BOOKS_COUNT-1)];
+            } while (in_array($bookNotAlreayReserved, $alreadyReservedBook));
+            $loan = (new Loan())->setId($uuids[$i])
+                ->setBorrowedBook($bookNotAlreayReserved)
+                ->setLoanDate($faker->dateTimeBetween("-1 month", "now"))
+                ->setMember($members[$faker->numberBetween(0, $MEMBERS_COUNT-1)])
+            ;
+
+            $loans[] = $loan;
+            $manager->persist($loan);
             $alreadyReservedBook[] = $bookNotAlreayReserved;
         }
 

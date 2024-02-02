@@ -15,3 +15,5 @@
 **Lancer les migrations:** php bin/console doctrine:migrations:migrate
 
 **Lancer les fixtures:** php bin/console doctrine:fixtures:load
+
+**Clear le cache:** php bin/console cache:clear
