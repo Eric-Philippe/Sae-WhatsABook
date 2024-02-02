@@ -17,6 +17,8 @@ import { BookCardComponent } from './Components/book-card/book-card.component';
 import { SuggestPage } from './Pages/Suggest/suggest.page';
 import { ConsultBookPage } from './Pages/ConsultBook/consultbook.page';
 import { ReviewCardComponent } from './Components/review-card/review-card.component';
+import { FooterComponent } from './Components/footer/footer.component';
+import { InstaCardComponent } from './Components/insta-card/insta-card.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { ReviewCardComponent } from './Components/review-card/review-card.compon
     SuggestPage,
     ConsultBookPage,
     ReviewCardComponent,
+    FooterComponent,
+    InstaCardComponent,
   ],
   imports: [
     BrowserModule,

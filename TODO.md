@@ -13,29 +13,36 @@
 - [x] Header
 - - [x] "S'identifier" / "Mon compte" Bascule en fonction de l'état de connexion
 
-- [ ] Footer
+- [x] Footer
 
 - [x] Welcome Page
+- - [x] Last news
+- - [x] Devenier Adhérent
 - - [x] Ajouter une carte interactive
+- - [x] Instagram Feed
 
 - [x] Login Page
 
 - [x] Account Page
 - - [x] Pouvoir modifier son mot de passe
 - - [x] Pouvoir modifier son compte
+- - [ ] Si un livre récemment emprunté, déposer un commentaire
 
-- [ ] Consultation des livres
+- [w] Consultation des livres
 - - [x] Lister les livres
 - - [x] Filtrer les livres
-- - [ ] Consulter un livre
+- - [x] Consulter un livre
+- - - [ ] Obtenir la réservation / emprunt
+- - - [ ] "Pouvoir réserver, emprunter"
 - - [ ] "D'autres oeuvres de l'auteur"
 
 - [x] Suggestions de livres
 - - [ ] Brancher le front au back
 
-- [ ] Contact Page
-
-- [ ] Support
+- [x] Support
+- - [x] Formulaire de contact
+- - [x] FAQ
+- - [ ] Brancher le front au back
 
 - [ ] Devenir Adhérent
 
