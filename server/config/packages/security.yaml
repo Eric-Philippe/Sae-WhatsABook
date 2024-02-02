@@ -47,6 +47,7 @@ security:
   access_control:
     - { path: ^/api/login, roles: PUBLIC_ACCESS }
     - { path: ^/api/user, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/api/reservations/me, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
   security:

@@ -8,36 +8,46 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: MemberRepository::class)]
 class Member implements PasswordAuthenticatedUserInterface, UserInterface
 {
     #[ORM\Id]
     #[ORM\Column(length: 36)]
+    #[Groups(['getBookReservation'])]
     private ?string $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups(['getBookReservation'])]
     private ?\DateTimeInterface $creationDate = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['getBookReservation'])]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['getBookReservation'])]
     private ?string $firstname = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups(['getBookReservation'])]
     private ?\DateTimeInterface $birthDate = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['getBookReservation'])]
     private ?string $email = "";
 
     #[ORM\Column(length: 80)]
+    #[Groups(['getBookReservation'])]
     private ?string $adress = null;
 
     #[ORM\Column(length: 10)]
+    #[Groups(['getBookReservation'])]
     private ?string $phoneNumber = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['getBookReservation'])]
     private ?string $photoLink = null;
 
     #[ORM\Column(length: 255)]

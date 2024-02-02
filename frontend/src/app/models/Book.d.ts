@@ -12,6 +12,6 @@ export type Book = {
   coverLink: string;
   authors: Author[];
   categories: Category[];
-  reservations: Reservation[];
+  reservation: Reservation | null;
   loans: Loan[];
 };

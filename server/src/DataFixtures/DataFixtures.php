@@ -13,6 +13,7 @@ use App\Entity\Category;
 use App\Entity\Book;
 use App\Entity\Member;
 use App\Entity\Role;
+use App\Entity\Reservation;
 
 use App\Utils\Utils;
 
@@ -122,8 +123,8 @@ class DataFixtures extends Fixture
         
         $manager->flush();
 
-        $member = new Member();
-        $member->setPassword($this->userPasswordHasher->hashPassword($member, "admin"))
+        $member_admin = new Member();
+        $member_admin->setPassword($this->userPasswordHasher->hashPassword($member_admin, "admin"))
                 ->setId(Utils::generateUUID())
                 ->setEmail("ericphlpp@gmail.com")
                 ->setAdress("1 rue de la paix, 75000 Paris")
@@ -135,12 +136,12 @@ class DataFixtures extends Fixture
                 ->setPhotoLink("https://picsum.photos/360/360?image=".(89) ."&grayscale")
                 ->setBirthDate(new \DateTime("2003-05-13"))
                 ;
-        $manager->persist($member);
+        $manager->persist($member_admin);
 
         $manager->flush();
 
-        $member = new Member();
-        $member->setPassword($this->userPasswordHasher->hashPassword($member, "admin"))
+        $me_member_member = new Member();
+        $me_member_member->setPassword($this->userPasswordHasher->hashPassword($me_member_member, "admin"))
                 ->setId(Utils::generateUUID())
                 ->setEmail("member@member.com")
                 ->setAdress("2 rue de la paix, 75000 Paris")
@@ -152,7 +153,7 @@ class DataFixtures extends Fixture
                 ->setPhotoLink("https://picsum.photos/360/360?image=".(89) ."&grayscale")
                 ->setBirthDate(new \DateTime("2003-05-13"))
                 ;
-        $manager->persist($member);
+        $manager->persist($me_member_member);
 
         $manager->flush();
 
@@ -162,7 +163,8 @@ class DataFixtures extends Fixture
         for ($i = 0; $i < $MEMBERS_COUNT; $i++) {
             $randomBirthDate = new \DateTime("");
             $randomBirthDate->sub(new \DateInterval("P".rand(0, 100)."Y".rand(0, 12)."M".rand(0, 30)."DT".rand(0, 23)."H".rand(0, 59)."M".rand(0, 59)."S"));
-            $member = (new Member())->setId($uuids[$i])
+            $member = new Member();
+                $member->setId($uuids[$i])
                 ->setEmail($faker->email())
                 ->setAdress($faker->address())
                 ->setFirstname($faker->firstName())
@@ -181,5 +183,39 @@ class DataFixtures extends Fixture
 
         $manager->flush();
 
+        $reservations =  [];
+        $alreadyReservedBook = [];
+
+        $myReservation = new Reservation();
+        $myReservation->setId(Utils::generateUUID())
+            ->setDateResa(new \DateTime("2024-02-02"))
+            ->setBook($livres[0])
+            ->setMember($member_admin);
+
+        $manager->persist($myReservation);
+
+        $alreadyReservedBook[] = $livres[0];
+
+
+        $RESERVATIONS_COUNT = 19;
+        $uuids = Utils::generateUniqueUUIDs($RESERVATIONS_COUNT);
+        for ($i = 0; $i < $RESERVATIONS_COUNT; $i++) {
+            // Get a random book from the list of books that is not in the alreadyReservedBook list
+            $bookNotAlreayReserved = null;
+            do {
+                $bookNotAlreayReserved = $livres[$faker->numberBetween(0, $BOOKS_COUNT-1)];
+            } while (in_array($bookNotAlreayReserved, $alreadyReservedBook));
+            $reservation = (new Reservation())->setId($uuids[$i])
+                ->setDateResa($faker->dateTimeBetween("-1 month", "now"))
+                ->setBook($bookNotAlreayReserved)
+                ->setMember($members[$faker->numberBetween(0, $MEMBERS_COUNT-1)])
+            ;
+
+            $reservations[] = $reservation;
+            $manager->persist($reservation);
+            $alreadyReservedBook[] = $bookNotAlreayReserved;
+        }
+
+        $manager->flush();
     }
 }

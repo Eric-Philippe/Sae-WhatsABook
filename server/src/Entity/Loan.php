@@ -23,7 +23,7 @@ class Loan
     private ?\DateTimeInterface $maxDateReturnLimit = null;
 
     #[ORM\ManyToOne(targetEntity: Book::class, inversedBy: 'loan')]
-    #[ORM\JoinColumn(name: 'id', referencedColumnName: 'id')]
+    #[ORM\JoinColumn(name: 'loan_id', referencedColumnName: 'id')]
     private $book;
 
     #[ORM\ManyToOne(targetEntity: Member::class, inversedBy: 'loans')]

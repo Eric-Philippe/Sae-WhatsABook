@@ -13,27 +13,27 @@ class Book
 {
     #[ORM\Id]
     #[ORM\Column(length: 36)]
-    #[Groups(["getBooks"])]
+    #[Groups(["getBooks", "getMemberReservation"])]
     private ?string $id = null;
 
     #[ORM\Column(length: 100)]
-    #[Groups(["getBooks"])]
+    #[Groups(["getBooks", "getMemberReservation"])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups(["getBooks"])]
+    #[Groups(["getBooks", "getMemberReservation"])]
     private ?string $summary = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Groups(["getBooks"])]
+    #[Groups(["getBooks", "getMemberReservation"])]
     private ?\DateTimeInterface $releaseDate = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(["getBooks"])]
+    #[Groups(["getBooks", "getMemberReservation"])]
     private ?string $language = null;
 
     #[ORM\Column(length: 150)]
-    #[Groups(["getBooks"])]
+    #[Groups(["getBooks", "getMemberReservation"])]
     private ?string $coverLink = null;
 
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'book')]
@@ -41,13 +41,13 @@ class Book
     #[Groups(["getBooks"])]
     private $categories;
     
-    #[ORM\OneToMany(mappedBy: 'book', targetEntity: Reservation::class)]
+    #[ORM\OneToOne(mappedBy: 'book', targetEntity: Reservation::class)]
     #[Groups(["getBooks"])]
-    private $reservations = null;
+    private $reservation;
     
     #[ORM\OneToMany(mappedBy: 'book', targetEntity: Loan::class)]
     #[Groups(["getBooks"])]
-    private $loans = null;
+    private $loans;
     
     #[ORM\ManyToMany(targetEntity: Author::class, inversedBy: 'books')]
     #[ORM\JoinTable(name: 'book_author')]
@@ -152,16 +152,13 @@ class Book
         return $this->categories;
     }
 
-    public function setReservations(?array $reservations): static {
-        $this->reservations = $reservations;
+    public function setReservation($reservation): static {
+        $this->reservation = $reservation;
         return $this;
     }
 
-    public function getReservations() {
-        if (!$this->reservations) {
-            $this->reservations = new ArrayCollection();
-        }
-        return $this->reservations;
+    public function getReservation() {
+        return $this->reservation;
     }
 
     public function setLoans(?array $loans): static {

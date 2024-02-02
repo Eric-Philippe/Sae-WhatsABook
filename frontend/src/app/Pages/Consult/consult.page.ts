@@ -54,6 +54,8 @@ export class ConsultPage implements OnInit {
 
     let res = await axios.get(API_URL('/books'));
     this.books = res.data;
+    console.log(this.books);
+
     this.filteredBooks = this.books;
 
     for (const book of this.filteredBooks) {
@@ -163,17 +165,19 @@ export class ConsultPage implements OnInit {
     }
 
     if (!this.isNullOrEmpty(available)) {
+      console.log(available);
+
       if (available === 'available') {
         this.filteredBooks = this.filteredBooks.filter(
-          (book) => book.loans.length === 0 && book.reservations.length === 0
+          (book) => book.loans.length === 0 && book.reservation === null
         );
       } else if (available === 'unavailable') {
         this.filteredBooks = this.filteredBooks.filter(
-          (book) => book.loans.length > 0 || book.reservations.length > 0
+          (book) => book.loans.length > 0
         );
       } else {
         this.filteredBooks = this.filteredBooks.filter(
-          (book) => book.loans.length === 0 && book.reservations.length === 0
+          (book) => book.reservation != null && book.loans.length === 0
         );
       }
     }

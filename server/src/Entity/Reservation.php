@@ -5,23 +5,28 @@ namespace App\Entity;
 use App\Repository\ReservationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
 class Reservation
 {
     #[ORM\Id]
     #[ORM\Column(length: 36)]
+    #[Groups(['getBooks', 'getMemberReservation', 'getBookReservation'])]
     private ?string $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups(['getBooks', 'getMemberReservation', 'getBookReservation'])]
     private ?\DateTimeInterface $dateResa = null;
 
-    #[ORM\ManyToOne(targetEntity: Book::class, inversedBy: 'reservations')]
-    #[ORM\JoinColumn(name: 'id', referencedColumnName: 'id')]
+    #[ORM\OneToOne(targetEntity: Book::class, inversedBy: 'reservations')]
+    #[ORM\JoinColumn(name: 'book_id', referencedColumnName: 'id')]
+    #[Groups(['getMemberReservation'])]
     private $book;
 
     #[ORM\ManyToOne(targetEntity: Member::class, inversedBy: 'reservations')]
     #[ORM\JoinColumn(name: 'member_id', referencedColumnName: 'id')]
+    #[Groups(['getBookReservation'])]
     private ?Member $member = null;
 
 
@@ -60,8 +65,15 @@ class Reservation
         return $this;
     }
 
-    public function getMembre(): ?Member
+    public function getMember(): ?Member
     {
         return $this->member;
+    }
+
+    public function setMember(?Member $member): static
+    {
+        $this->member = $member;
+
+        return $this;
     }
 }
