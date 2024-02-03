@@ -54,7 +54,6 @@ export class ConsultPage implements OnInit {
 
     let res = await axios.get(API_URL('/books'));
     this.books = res.data;
-    console.log(this.books);
 
     this.filteredBooks = this.books;
 

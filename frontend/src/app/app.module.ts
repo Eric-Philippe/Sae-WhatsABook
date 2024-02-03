@@ -22,6 +22,7 @@ import { InstaCardComponent } from './Components/insta-card/insta-card.component
 import { SelectionPage } from './Pages/Selection/selection.page';
 import { AdherentPage } from './Pages/Adherent/adherent.page';
 import { ReservationCardComponent } from './Components/reservation-card/reservation-card.component';
+import { LoanCardComponent } from './Components/loan-card/loan-card.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { ReservationCardComponent } from './Components/reservation-card/reservat
     SelectionPage,
     AdherentPage,
     ReservationCardComponent,
+    LoanCardComponent,
   ],
   imports: [
     BrowserModule,

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { ProtectedPage } from 'src/app/Middlewares/ProtectedPage';
 import API_URL from 'src/app/URL';
 import { Book } from 'src/app/models/Book';
+import { Loan } from 'src/app/models/Loan';
 
 type BookResa = {
   id: string;
@@ -21,6 +22,8 @@ export class SelectionPage extends ProtectedPage {
   sBook: BookResa | null = null;
   tBook: BookResa | null = null;
 
+  myLoans: Loan[] = [];
+
   constructor(router: Router) {
     super(router);
   }
@@ -28,7 +31,7 @@ export class SelectionPage extends ProtectedPage {
   override async ngOnInit() {
     await super.ngOnInit();
 
-    const res = await axios.get(
+    let res = await axios.get(
       API_URL('/reservations/me/' + this.session?.user.id),
       {
         headers: { Authorization: `Bearer ${this.session?.token}` },
@@ -39,6 +42,19 @@ export class SelectionPage extends ProtectedPage {
       this.fBook = this.reservedBooks[0];
       this.sBook = this.reservedBooks[1];
       this.tBook = this.reservedBooks[2];
+    }
+
+    res = await axios.get(
+      API_URL('/loan/me/current/' + this.session?.user.id),
+      {
+        headers: { Authorization: `Bearer ${this.session?.token}` },
+      }
+    );
+
+    console.log(res.data);
+
+    if (res.status === 200) {
+      this.myLoans = res.data;
     }
   }
 

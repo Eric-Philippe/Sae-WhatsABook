@@ -1,0 +1,71 @@
+<div
+  class="mt-4 md:mt-6 flex items-start md:items-center md:space-x-6 xl:space-x-8 w-full"
+>
+  <!-- Book Cover Section-->
+  <div class="pb-4 md:pb-8 w-full md:w-40">
+    <img
+      class="w-32 h-48 rounded-md hidden md:block"
+      [src]="loan?.book?.coverLink"
+      alt="cover"
+    />
+  </div>
+
+  <!-- Book Info Section-->
+  <div
+    class="border-b border-gray-200 flex-col flex justify-between items-start w-full pb-8 space-y-4 md:space-y-0"
+  >
+    <div class="w-full flex flex-col justify-start items-start space-y-8">
+      <h3 class="text-xl xl:text-2xl font-semibold leading-6 text-gray-800">
+        {{ loan?.book?.title }}
+      </h3>
+      <div class="flex justify-start items-start flex-col space-y-2">
+        <p class="text-sm leading-none text-gray-800">
+          <span class="text-gray-400">Auteurs: </span> {{ getAuthorsName() }}
+        </p>
+        <p class="text-sm leading-none text-gray-800">
+          <span class="text-gray-400">Description: </span>
+          {{ loan?.book?.summary?.substring(0, 50) }}...
+        </p>
+        <p class="text-sm leading-none text-gray-800">
+          <span class="text-gray-400">Catégories: </span>
+          <span
+            *ngFor="let category of loan?.book?.categories"
+            class="inline-flex items-center mr-1 rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10"
+          >
+            {{ category.name }}
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Book Cover Section-->
+  <div class="pb-4 md:pb-8 w-full md:w-80">
+    <p class="text-sm leading-none text-gray-800">
+      <span class="text-gray-400">Date de l'emprunt: <br /></span>
+      {{ loan?.loanDate | date : "dd/MM/yyyy" }}
+    </p>
+    <p class="text-sm leading-none text-gray-800 mt-4">
+      <span class="text-gray-400">Date de retour maximum: <br /></span>
+      {{ getLoanDatePlusThreeWeeks() | date : "dd/MM/yyyy" }}
+    </p>
+    <p
+      class="text-sm leading-none text-gray-800 mt-4"
+      *ngIf="getRemainingDays() > 0"
+    >
+      <span class="text-gray-400">Date de retour effective: <br /></span>
+      <span class="text-green-500"
+        >{{ getRemainingDays() }} jour(s) restant(s)
+      </span>
+    </p>
+    <p
+      class="text-sm leading-none text-gray-800 mt-4"
+      *ngIf="getRemainingDays() <= 0"
+    >
+      <span class="text-gray-400">Retard accumulé: <br /></span>
+      <span class="text-red-500"
+        >{{ -1 * getRemainingDays() }} jour(s) de retard 🥹
+      </span>
+    </p>
+  </div>
+</div>
