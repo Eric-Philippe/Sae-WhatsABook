@@ -8,6 +8,8 @@ import { NotFoundPage } from './Pages/404/notfound.page';
 import { ConsultPage } from './Pages/Consult/consult.page';
 import { SuggestPage } from './Pages/Suggest/suggest.page';
 import { ConsultBookPage } from './Pages/ConsultBook/consultbook.page';
+import { SelectionPage } from './Pages/Selection/selection.page';
+import { AdherentPage } from './Pages/Adherent/adherent.page';
 
 const routes: Routes = [
   { path: '', component: HomePage },
@@ -17,6 +19,8 @@ const routes: Routes = [
   { path: 'consult', component: ConsultPage },
   { path: 'suggest', component: SuggestPage },
   { path: 'consult/:id', component: ConsultBookPage },
+  { path: 'selection', component: SelectionPage },
+  { path: 'adherent', component: AdherentPage },
   { path: '**', component: NotFoundPage },
 ];
 

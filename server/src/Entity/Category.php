@@ -11,15 +11,15 @@ class Category
 {
     #[ORM\Id]
     #[ORM\Column(length: 36)]
-    #[Groups(["getBooks", "getCategories"])]
+    #[Groups(["getBooks", "getCategories", "getLoans"])]
     private ?string $id = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(["getBooks", "getCategories"])]
+    #[Groups(["getBooks", "getCategories", "getLoans"])]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(["getBooks", "getCategories"])]
+    #[Groups(["getBooks", "getCategories", "getLoans"])]
     private ?string $description = null;
 
     #[ORM\ManyToMany(targetEntity: Book::class, mappedBy: 'categories')]

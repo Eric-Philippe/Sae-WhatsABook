@@ -12,19 +12,20 @@ class Loan
 {
     #[ORM\Id]
     #[ORM\Column(length: 36)]
-    #[Groups(['getBooks'])]
+    #[Groups(['getBooks', 'getLoans'])]
     private ?string $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Groups(['getBooks'])]
+    #[Groups(['getBooks', 'getLoans'])]
     private ?\DateTimeInterface $loanDate = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    #[Groups(['getBooks'])]
+    #[Groups(['getBooks', 'getLoans'])]
     private ?\DateTimeInterface $returnDate = null;
 
     #[ORM\ManyToOne(targetEntity: Book::class, inversedBy: 'loan')]
     #[ORM\JoinColumn(name: 'book_id', referencedColumnName: 'id')]
+    #[Groups(['getLoans'])]
     private $book;
 
     #[ORM\ManyToOne(targetEntity: Member::class, inversedBy: 'loans')]
@@ -86,6 +87,18 @@ class Loan
     public function setMember($member): static
     {
         $this->member = $member;
+
+        return $this;
+    }
+
+    public function getBook()
+    {
+        return $this->book;
+    }
+
+    public function setBook($book): static
+    {
+        $this->book = $book;
 
         return $this;
     }

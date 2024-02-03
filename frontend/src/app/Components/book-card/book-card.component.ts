@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Author } from 'src/app/models/Author';
 import { Book } from 'src/app/models/Book';
 
 @Component({

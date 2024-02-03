@@ -78,4 +78,20 @@ class ReservationController extends AbstractController
 
         return new JsonResponse('Reservation created', Response::HTTP_CREATED);
     }
+
+    #[Route('/api/reservations/cancel/{resId}', name: 'reservations_cancel', methods: ['DELETE'])]
+    public function cancelReservation(string $resId, ReservationRepository $resRepo, SerializerInterface $serializer, EntityManagerInterface $em): JsonResponse
+    {
+        // Get the reservation
+        $reservation = $resRepo->find($resId);
+        if (!$reservation) {
+            return new JsonResponse('Reservation not found', Response::HTTP_NOT_FOUND);
+        }
+
+        // Delete the reservation
+        $em->remove($reservation);
+        $em->flush();
+
+        return new JsonResponse('Reservation deleted', Response::HTTP_OK);
+    }
 }

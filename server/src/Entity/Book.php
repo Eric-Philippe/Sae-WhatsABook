@@ -13,32 +13,32 @@ class Book
 {
     #[ORM\Id]
     #[ORM\Column(length: 36)]
-    #[Groups(["getBooks", "getMemberReservation"])]
+    #[Groups(["getBooks", "getMemberReservation", "getLoans"])]
     private ?string $id = null;
 
     #[ORM\Column(length: 100)]
-    #[Groups(["getBooks", "getMemberReservation"])]
+    #[Groups(["getBooks", "getMemberReservation", "getLoans"])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups(["getBooks", "getMemberReservation"])]
+    #[Groups(["getBooks", "getMemberReservation", "getLoans"])]
     private ?string $summary = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Groups(["getBooks", "getMemberReservation"])]
+    #[Groups(["getBooks", "getMemberReservation", "getLoans"])]
     private ?\DateTimeInterface $releaseDate = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(["getBooks", "getMemberReservation"])]
+    #[Groups(["getBooks", "getMemberReservation", "getLoans"])]
     private ?string $language = null;
 
     #[ORM\Column(length: 150)]
-    #[Groups(["getBooks", "getMemberReservation"])]
+    #[Groups(["getBooks", "getMemberReservation", "getLoans"])]
     private ?string $coverLink = null;
 
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'book')]
     #[ORM\JoinTable(name: 'book_category')]
-    #[Groups(["getBooks"])]
+    #[Groups(["getBooks", "getLoans"])]
     private $categories;
     
     #[ORM\OneToOne(mappedBy: 'book', targetEntity: Reservation::class)]
@@ -51,7 +51,7 @@ class Book
     
     #[ORM\ManyToMany(targetEntity: Author::class, inversedBy: 'books')]
     #[ORM\JoinTable(name: 'book_author')]
-    #[Groups(["getBooks"])]
+    #[Groups(["getBooks", "getLoans"])]
     private $authors;
     
 

@@ -1,0 +1,9 @@
+.card {
+  transition: all 0.3s ease-out; /* Durée de l'animation */
+}
+.card:hover {
+  transform: scale(
+    1.1
+  ); /* Augmente la taille de la carte de 10% lors du survol */
+  z-index: 1; /* Assure que la carte agrandie se superpose aux autres cartes */
+}

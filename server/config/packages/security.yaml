@@ -49,6 +49,9 @@ security:
     - { path: ^/api/user, roles: IS_AUTHENTICATED_FULLY }
     - { path: ^/api/reservations/me, roles: IS_AUTHENTICATED_FULLY }
     - { path: ^/api/reservations/create, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/api/reservations/cancel, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/api/loan/me/current, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/api/loan/me/returned, roles: IS_AUTHENTICATED_FULLY }
 
 when@test:
   security:

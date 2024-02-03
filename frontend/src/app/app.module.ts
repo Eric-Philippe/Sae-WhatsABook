@@ -19,6 +19,9 @@ import { ConsultBookPage } from './Pages/ConsultBook/consultbook.page';
 import { ReviewCardComponent } from './Components/review-card/review-card.component';
 import { FooterComponent } from './Components/footer/footer.component';
 import { InstaCardComponent } from './Components/insta-card/insta-card.component';
+import { SelectionPage } from './Pages/Selection/selection.page';
+import { AdherentPage } from './Pages/Adherent/adherent.page';
+import { ReservationCardComponent } from './Components/reservation-card/reservation-card.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +40,9 @@ import { InstaCardComponent } from './Components/insta-card/insta-card.component
     ReviewCardComponent,
     FooterComponent,
     InstaCardComponent,
+    SelectionPage,
+    AdherentPage,
+    ReservationCardComponent,
   ],
   imports: [
     BrowserModule,

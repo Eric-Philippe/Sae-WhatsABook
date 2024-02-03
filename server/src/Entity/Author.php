@@ -12,35 +12,35 @@ class Author
 {
     #[ORM\Id]
     #[ORM\Column(length: 36)]
-    #[Groups(["getBooks"])]
+    #[Groups(["getBooks", "getLoans"])]
     private ?string $id = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(["getBooks"])]
+    #[Groups(["getBooks", "getLoans"])]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(["getBooks"])]
+    #[Groups(["getBooks", "getLoans"])]
     private ?string $firstname = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    #[Groups(["getBooks"])]
+    #[Groups(["getBooks", "getLoans"])]
     private ?\DateTimeInterface $birthDate = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    #[Groups(["getBooks"])]
+    #[Groups(["getBooks", "getLoans"])]
     private ?\DateTimeInterface $deathDate = null;
 
     #[ORM\Column(length: 50, nullable: true)]
-    #[Groups(["getBooks"])]
+    #[Groups(["getBooks", "getLoans"])]
     private ?string $nationality = null;
 
     #[ORM\Column(length: 150)]
-    #[Groups(["getBooks"])]
+    #[Groups(["getBooks", "getLoans"])]
     private ?string $photoLink = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups(["getBooks"])]
+    #[Groups(["getBooks", "getLoans"])]
     private ?string $description = null;
 
     #[ORM\ManyToMany(targetEntity: Book::class, mappedBy: 'authors')]
