@@ -13,32 +13,36 @@ class Book
 {
     #[ORM\Id]
     #[ORM\Column(length: 36)]
-    #[Groups(["getBooks", "getMemberReservation", "getLoans"])]
+    #[Groups(["getBooks", "getMemberReservation", "getLoans", "getAuthors"])]
     private ?string $id = null;
 
     #[ORM\Column(length: 100)]
-    #[Groups(["getBooks", "getMemberReservation", "getLoans"])]
+    #[Groups(["getBooks", "getMemberReservation", "getLoans", "getAuthors"])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups(["getBooks", "getMemberReservation", "getLoans"])]
+    #[Groups(["getBooks", "getMemberReservation", "getLoans", "getAuthors"])]
     private ?string $summary = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    #[Groups(["getBooks", "getMemberReservation", "getLoans"])]
+    #[Groups(["getBooks", "getMemberReservation", "getLoans", "getAuthors"])]
     private ?\DateTimeInterface $releaseDate = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(["getBooks", "getMemberReservation", "getLoans"])]
+    #[Groups(["getBooks", "getMemberReservation", "getLoans", "getAuthors"])]
     private ?string $language = null;
 
     #[ORM\Column(length: 150)]
-    #[Groups(["getBooks", "getMemberReservation", "getLoans"])]
+    #[Groups(["getBooks", "getMemberReservation", "getLoans", "getAuthors"])]
     private ?string $coverLink = null;
+
+    #[ORM\Column(type: Types::INTEGER)]
+    #[Groups(["getBooks", "getMemberReservation", "getLoans", "getAuthors"])]
+    private ?int $pageNumber = null;
 
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'book')]
     #[ORM\JoinTable(name: 'book_category')]
-    #[Groups(["getBooks", "getLoans"])]
+    #[Groups(["getBooks", "getLoans", "getAuthors"])]
     private $categories;
     
     #[ORM\OneToOne(mappedBy: 'book', targetEntity: Reservation::class)]
@@ -123,6 +127,18 @@ class Book
     public function setCoverLink(string $coverLink): static
     {
         $this->coverLink = $coverLink;
+
+        return $this;
+    }
+
+    public function getPageNumber(): ?int
+    {
+        return $this->pageNumber;
+    }
+
+    public function setPageNumber(int $pageNumber): static
+    {
+        $this->pageNumber = $pageNumber;
 
         return $this;
     }

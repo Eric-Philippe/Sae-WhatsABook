@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import axios from 'axios';
+import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
+
+const PUBLIC_KEY = 'eoPJ5KwYUNr5YwcQL';
+const SERVICE_ID = 'service_gmqxltg';
+const TEMPLATE_ID = 'template_clt36qe';
 
 import Session from 'src/app/Middlewares/Session';
 import API_URL from 'src/app/URL';
@@ -77,6 +82,19 @@ export class ConsultBookPage implements OnInit {
     if (!userId) return;
     const bookId = this.book.id;
     try {
+      emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        {
+          name: this.session.user?.firstname,
+          book: this.book.title,
+          email: this.session.user?.email,
+        },
+        {
+          publicKey: PUBLIC_KEY,
+        }
+      );
+
       const res = await axios.post(
         API_URL('/reservations/create'),
         {

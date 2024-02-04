@@ -2,7 +2,7 @@
 
 - [x] Créer Schéma
 
-- [ ] Ajouter une table `suggestions` pour les suggestions de livres
+- [x] Ajouter une table `suggestions` pour les suggestions de livres
 
 # FrontEnd
 
@@ -33,24 +33,18 @@
 - - [x] Filtrer les livres
 - - [x] Consulter un livre
 - - - [x] Obtenir la réservation / emprunt
-- - - [x] "Pouvoir réserver, emprunter"
-- - - [ ] Envoyer un mail de confirmation
-- - [ ] "D'autres oeuvres de l'auteur"
+- - - [x] "Pouvoir réserver"
+- - - [x] Envoyer un mail de confirmation
+- - [x] "D'autres oeuvres de l'auteur"
 
 - [x] Suggestions de livres
-- - [ ] Brancher le front au back
+- - [x] Brancher le front au back
 
 - [x] Support
 - - [x] Formulaire de contact
 - - [x] FAQ
-- - [ ] Brancher le front au back
+- - [x] Brancher le front au back
 
 - [ ] Devenir Adhérent
 
-- [ ] Mes Emprunts et Réservations
-
-# BackOffice
-
-# API
-
-- [ ] Routes UPDATE Compte
+- [x] Mes Emprunts et Réservations

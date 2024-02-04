@@ -40,6 +40,8 @@ export class ConsultPage implements OnInit {
     this.filterForm = this.fb.group({
       categories: [''],
       languages: [''],
+      minPages: [''],
+      maxPages: [''],
       minYear: [''],
       maxYear: [''],
       available: [''],
@@ -72,6 +74,8 @@ export class ConsultPage implements OnInit {
 
     res = await axios.get(API_URL('/categories'));
     this.categories = res.data;
+
+    console.log(this.books);
   }
 
   changeAvailabilityCheck(selectedOption: string): void {
@@ -112,6 +116,8 @@ export class ConsultPage implements OnInit {
 
     const categories = this.filterForm.get('categories')?.value as string;
     const languages = this.filterForm.get('languages')?.value;
+    const minPages = this.filterForm.get('minPages')?.value as number | '';
+    const maxPages = this.filterForm.get('maxPages')?.value as number | '';
     const minYear = this.filterForm.get('minYear')?.value as number | '';
     const maxYear = this.filterForm.get('maxYear')?.value as number | '';
     const available = this.filterForm.get('available')?.value;
@@ -148,6 +154,18 @@ export class ConsultPage implements OnInit {
     if (!this.isNullOrEmpty(languages) && languages != 'Toutes les langues') {
       this.filteredBooks = this.filteredBooks.filter((book) =>
         book.language.toLowerCase().includes(languages.toLowerCase())
+      );
+    }
+
+    if (!this.isNullOrEmpty(minPages) && typeof minPages == 'number') {
+      this.filteredBooks = this.filteredBooks.filter(
+        (book) => book.pageNumber >= minPages
+      );
+    }
+
+    if (!this.isNullOrEmpty(maxPages) && typeof maxPages == 'number') {
+      this.filteredBooks = this.filteredBooks.filter(
+        (book) => book.pageNumber <= maxPages
       );
     }
 

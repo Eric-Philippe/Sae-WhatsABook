@@ -10,6 +10,7 @@ export type Book = {
   releaseDate: string;
   language: string;
   coverLink: string;
+  pageNumber: number;
   authors: Author[];
   categories: Category[];
   reservation: Reservation | null;

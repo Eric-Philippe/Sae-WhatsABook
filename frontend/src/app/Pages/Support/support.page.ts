@@ -5,7 +5,12 @@ import {
   faHandshakeAngle,
   faSchool,
 } from '@fortawesome/free-solid-svg-icons';
+import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 import Session from 'src/app/Middlewares/Session';
+
+const PUBLIC_KEY = 'eoPJ5KwYUNr5YwcQL';
+const SERVICE_ID = 'service_gmqxltg';
+const TEMPLATE_ID = 'template_557kmya';
 
 @Component({
   selector: 'app-support',
@@ -41,7 +46,22 @@ export class SupportPage implements OnInit {
   }
 
   async onSubmit(): Promise<void> {
-    this.success = true;
-    this.suggestForm.reset();
+    const session = await Session.getInstance();
+    try {
+      emailjs.send(
+        SERVICE_ID,
+        TEMPLATE_ID,
+        {
+          name: session.user?.firstname + ' ' + session.user?.lastname,
+          email: session.user?.email,
+          message: this.suggestForm.value.description,
+        },
+        {
+          publicKey: PUBLIC_KEY,
+        }
+      );
+      this.success = true;
+      this.suggestForm.reset();
+    } catch (err) {}
   }
 }

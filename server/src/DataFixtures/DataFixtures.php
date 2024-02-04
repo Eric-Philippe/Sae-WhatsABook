@@ -15,7 +15,7 @@ use App\Entity\Member;
 use App\Entity\Role;
 use App\Entity\Reservation;
 use App\Entity\Loan;
-
+use App\Entity\Suggestion;
 use App\Utils\Utils;
 
 class DataFixtures extends Fixture
@@ -50,11 +50,13 @@ class DataFixtures extends Fixture
             
             // Generate deathDate after birthDate
             $deathDate = !$isDead ? null : $faker->dateTimeBetween($birthDateString, $maxAgeString);
+            $isABoy = $faker->boolean();
+            $avatarType = $isABoy ? "men" : "women";
                         
             $auteur = (new Author())->setId($uuids[$i])
                                     ->setFirstname($faker->firstName())
                                     ->setLastname($faker->lastName())                                     
-                                    ->setPhotoLink("https://picsum.photos/360/360?image=".($i+1))
+                                    ->setPhotoLink("https://randomuser.me/api/portraits/".$avatarType."/".$i.".jpg")
                                     ->setBirthDate($birthDate)
                                     ->setDeathDate($deathDate)
                                     ->setDescription($faker->paragraph())
@@ -100,6 +102,7 @@ class DataFixtures extends Fixture
             ->setTitle($faker->sentence(3))
             ->setSummary($faker->paragraph(6))
             ->setLanguage($faker->randomElement($langues))
+            ->setPageNumber($faker->numberBetween(50, 1000))
             ->setCategories($faker->randomElements($categories, $faker->numberBetween(1, 3)))
             ->setAuthors($faker->randomElements($auteurs, $faker->numberBetween(1,2)))
             ;
@@ -255,6 +258,19 @@ class DataFixtures extends Fixture
             $alreadyReservedBook[] = $bookNotAlreayReserved;
         }
 
+        $manager->flush();
+
+        $suggestion = (new Suggestion())->setId(Utils::generateUUID())
+            ->setTitle($faker->sentence(3))
+            ->setEditor($faker->company())
+            ->setReleaseDate($faker->dateTimeBetween("-1 year", "now"))
+            ->setAuthors($faker->name())
+            ->setDescription($faker->paragraph(6))
+            ->setDetails($faker->paragraph(3))
+            ->setMember($member_admin)
+            ;
+
+        $manager->persist($suggestion);
         $manager->flush();
     }
 }

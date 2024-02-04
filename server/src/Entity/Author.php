@@ -12,38 +12,39 @@ class Author
 {
     #[ORM\Id]
     #[ORM\Column(length: 36)]
-    #[Groups(["getBooks", "getLoans"])]
+    #[Groups(["getBooks", "getLoans", "getAuthors"])]
     private ?string $id = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(["getBooks", "getLoans"])]
+    #[Groups(["getBooks", "getLoans", "getAuthors"])]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(["getBooks", "getLoans"])]
+    #[Groups(["getBooks", "getLoans", "getAuthors"])]
     private ?string $firstname = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    #[Groups(["getBooks", "getLoans"])]
+    #[Groups(["getBooks", "getLoans", "getAuthors"])]
     private ?\DateTimeInterface $birthDate = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    #[Groups(["getBooks", "getLoans"])]
+    #[Groups(["getBooks", "getLoans", "getAuthors"])]
     private ?\DateTimeInterface $deathDate = null;
 
     #[ORM\Column(length: 50, nullable: true)]
-    #[Groups(["getBooks", "getLoans"])]
+    #[Groups(["getBooks", "getLoans", "getAuthors"])]
     private ?string $nationality = null;
 
     #[ORM\Column(length: 150)]
-    #[Groups(["getBooks", "getLoans"])]
+    #[Groups(["getBooks", "getLoans", "getAuthors"])]
     private ?string $photoLink = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups(["getBooks", "getLoans"])]
+    #[Groups(["getBooks", "getLoans", "getAuthors"])]
     private ?string $description = null;
 
     #[ORM\ManyToMany(targetEntity: Book::class, mappedBy: 'authors')]
+    #[Groups(["getAuthors"])]
     private $books;
 
     public function getId(): ?string
@@ -138,6 +139,18 @@ class Author
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getBooks()
+    {
+        return $this->books;
+    }
+
+    public function setBooks($books): static
+    {
+        $this->books = $books;
 
         return $this;
     }
