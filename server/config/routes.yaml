@@ -15,3 +15,8 @@ app.swagger_ui:
   path: /api/doc
   methods: GET
   defaults: { _controller: nelmio_api_doc.controller.swagger_ui }
+
+app:
+  path: /app
+  methods: GET
+  # It's in bundles/app/index.html
