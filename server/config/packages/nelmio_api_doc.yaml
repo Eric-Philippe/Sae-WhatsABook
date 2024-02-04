@@ -1,0 +1,22 @@
+nelmio_api_doc:
+  documentation:
+    servers:
+      - url: http://localhost:8008
+        description: API over HTTP
+      - url: https://localhost:8008
+        description: API over HTTPS
+    info:
+      title: What's a Book Fancy API
+      description: API for the What's a Book Fancy application
+      version: 1.0.0
+    components:
+      securitySchemes:
+        Bearer:
+          type: http
+          scheme: bearer
+          bearerFormat: JWT
+    security:
+      - Bearer: []
+  areas:
+    default:
+      path_patterns: ["/api/*"]
