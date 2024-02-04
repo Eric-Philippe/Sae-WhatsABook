@@ -10,3 +10,9 @@ kernel:
 
 api_login_check:
   path: /api/login_check
+
+app:
+  path: /app/{any}
+  controller: HomeController::index
+  requirements:
+    any: .*

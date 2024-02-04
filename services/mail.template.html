@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Votre Sujet de Mail</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      h1 {
+        color: #3498db;
+      }
+
+      p {
+        color: #555;
+      }
+
+      .button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Suppression de votre réservation n°{{RESERVATION_ORDER}}</h1>
+      <p>Bonjour,</p>
+      <p>
+        Nous avons le regret de vous informer que votre réservation n°
+        {{RESERVATION_ORDER}}, contenant le livre {{BOOK_TITLE}} a été annulée.
+      </p>
+      <p>
+        N'oubliez pas qu'une réservation est valable pendant 7 jours. Si vous ne
+        venez pas chercher votre livre dans ce délai, votre réservation sera
+        annulée.
+      </p>
+
+      <p>Meilleures salutations,<br />What's a Book</p>
+
+      <a href="http://localhost:4200" class="button">Retrouvez-notre site</a>
+    </div>
+  </body>
+</html>
