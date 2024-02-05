@@ -28,7 +28,8 @@ class DashboardController extends AbstractDashboardController
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
-            ->setTitle('Server');
+            ->setTitle("What's a Book . Bask Office")
+            ->setFaviconPath('assets/Logo.png');
     }
 
     public function configureMenuItems(): iterable
@@ -37,20 +38,19 @@ class DashboardController extends AbstractDashboardController
 
         if ($this->isGranted('ROLE_ADMIN')) {
             yield MenuItem::section('Section bibliotheque');
-            yield MenuItem::linkToCrud('Author', 'ffa fa-user', Author::class);
-            yield MenuItem::linkToCrud('Book', 'fa-solid fa-book', Book::class);
-            yield MenuItem::linkToCrud('Category', 'fa-solid fa-list', Category::class);
+            yield MenuItem::linkToCrud('Auteurs', 'ffa fa-user', Author::class);
+            yield MenuItem::linkToCrud('Livres', 'fa-solid fa-book', Book::class);
+            yield MenuItem::linkToCrud('Categories', 'fa-solid fa-list', Category::class);
         }
 
         /* Section 2 */
         yield MenuItem::section('Configuration interne');
         if ($this->isGranted('ROLE_ADMIN')) {
-            yield MenuItem::linkToCrud('Member', 'fa fa-user', Member::class);
-            yield MenuItem::linkToCrud('Role', 'fa fa-user', Role::class);
+            yield MenuItem::linkToCrud('Voir les adhérents', 'fa fa-user', Member::class);
         }
-        yield MenuItem::linkToCrud('Loan', 'fa-solid fa-bookmark', Loan::class);
-        yield MenuItem::linkToCrud('Reservation', 'fa-solid fa-book-open', Reservation::class);
-        yield MenuItem::linkToCrud('Suggestion', 'fa-solid fa-book-open', Suggestion::class);
+        yield MenuItem::linkToCrud('Gérer les emprunts', 'fa-solid fa-bookmark', Loan::class);
+        yield MenuItem::linkToCrud('Consulter les réservations', 'fa-solid fa-book-open', Reservation::class);
+        yield MenuItem::linkToCrud('Voir les suggestions', 'fa-solid fa-lightbulb', Suggestion::class);
         
     }
 }
