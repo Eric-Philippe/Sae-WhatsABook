@@ -17,3 +17,7 @@
 **Lancer les fixtures:** php bin/console doctrine:fixtures:load
 
 **Clear le cache:** php bin/console cache:clear
+
+**Installer un certificat SSL:** symfony server:ca:install
+
+**Désinstaller un certificat SSL:** symfony server:ca:uninstall

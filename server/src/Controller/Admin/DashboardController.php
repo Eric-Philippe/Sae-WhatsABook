@@ -10,6 +10,9 @@ use App\Entity\Member;
 use App\Entity\Reservation;
 use App\Entity\Suggestion;
 use App\Entity\Role;
+use App\Repository\LoanRepository;
+use App\Repository\MemberRepository;
+use App\Repository\ReservationRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -19,10 +22,37 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class DashboardController extends AbstractDashboardController
 {
+    // Consturctor
+    private $memberRepository;
+    private $loanRepository;
+    private $reservationRepository;
+
+    public function __construct(MemberRepository $memberRepository, LoanRepository $loanRepository, ReservationRepository $reservationRepository)
+    {
+        $this->memberRepository = $memberRepository;
+        $this->loanRepository = $loanRepository;
+        $this->reservationRepository = $reservationRepository;
+    }
+
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        return $this->render('admin/dashboard.html.twig');
+       $memberCount = $this->memberRepository->count([]);
+       $loanCount = $this->loanRepository->count([]);
+       $reservationsCount = $this->reservationRepository->count([]);
+        $userRole = $this->getUser()->getRoles()[0];
+        if ($userRole == 'ROLE_ADMIN') {
+            $userRole = 'Responsable Bibliothèque';
+        } else {
+            $userRole = 'Bibliothécaire';
+        }
+
+        return $this->render('admin/dashboard.html.twig', [
+            'memberCount' => $memberCount,
+            'loanCount' => $loanCount,
+            'reservationsCount' => $reservationsCount,
+            'userRole' => $userRole
+        ]);
     }
 
     public function configureDashboard(): Dashboard
@@ -51,6 +81,5 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Gérer les emprunts', 'fa-solid fa-bookmark', Loan::class);
         yield MenuItem::linkToCrud('Consulter les réservations', 'fa-solid fa-book-open', Reservation::class);
         yield MenuItem::linkToCrud('Voir les suggestions', 'fa-solid fa-lightbulb', Suggestion::class);
-        
     }
 }
