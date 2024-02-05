@@ -153,6 +153,17 @@ class LoanCrudController extends AbstractCrudController
         foreach ($loanBooks as $book) {
             $loan = clone $loanTemplate;
             $loan->setBook($book);
+            $bookReserved = $book->getReservation();
+            if ($bookReserved) {
+                if ($bookReserved->getMember() === $loanTemplate->getMember()) {
+                    $this->entityManager->remove($bookReserved);
+                    $this->entityManager->flush();
+                } else {
+                    $this->addFlash('error', 'Le livre '.$book->getTitle().' est réservé par '.$bookReserved->getMember()->getFirstname().' '.$bookReserved->getMember()->getLastname().'.');
+                    return;
+                }
+            }
+
             $loan->setLoanDate(new \DateTime());
             $loan->setId(Utils::generateUuid());
     

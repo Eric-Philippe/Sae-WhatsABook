@@ -52,7 +52,7 @@ class Book
     )]
     private $categories;
     
-    #[ORM\OneToOne(mappedBy: 'book', targetEntity: Reservation::class)]
+    #[ORM\OneToOne(mappedBy: 'book', targetEntity: Reservation::class, cascade: ['persist'])]
     #[Groups(["getBooks"])]
     private $reservation;
     
