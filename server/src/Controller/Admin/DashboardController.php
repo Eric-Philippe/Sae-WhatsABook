@@ -59,7 +59,8 @@ class DashboardController extends AbstractDashboardController
     {
         return Dashboard::new()
             ->setTitle("What's a Book . Bask Office")
-            ->setFaviconPath('assets/Logo.png');
+            ->setFaviconPath('assets/Logo.png')
+            ->setTranslationDomain('fr');
     }
 
     public function configureMenuItems(): iterable
