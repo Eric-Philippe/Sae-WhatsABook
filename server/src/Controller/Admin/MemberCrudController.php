@@ -45,8 +45,13 @@ class MemberCrudController extends AbstractCrudController
 
     public function configureActions(Actions $actions): Actions
     {
+        $resetPass = Action::new('resetPass', 'Réinitialiser le mot de passe')
+            ->linkToCrudAction('resetPass');
+
         return $actions
-            ->add(Crud::PAGE_INDEX, Action::DETAIL);
+            ->add(Crud::PAGE_INDEX, Action::DETAIL)
+            ->add(Crud::PAGE_INDEX, $resetPass)
+            ;
     }
 
     public function configureCrud(Crud $crud): Crud

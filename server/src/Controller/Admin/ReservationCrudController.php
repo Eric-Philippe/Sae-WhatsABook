@@ -79,8 +79,6 @@ class ReservationCrudController extends AbstractCrudController
             ->add(Crud::PAGE_INDEX, $createLoanFromResa)
             ->add(Crud::PAGE_DETAIL, $createLoanFromResa)
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
-            // Remove the edit part 
-            ->disable(Action::EDIT)
             ;
     }
 
