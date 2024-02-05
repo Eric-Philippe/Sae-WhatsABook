@@ -45,9 +45,15 @@ export class HomePage {
   instaPosts = INSTA_POSTS;
   faArrowBack = faArrowLeft;
   faArrowNext = faArrowRight;
+  showCookieBanner = localStorage.getItem('showCookieBanner') !== 'false';
 
   ngOnInit() {
     this.initMap();
+  }
+
+  hideCookieBanner() {
+    this.showCookieBanner = false;
+    localStorage.setItem('showCookieBanner', 'false');
   }
 
   constructor() {
