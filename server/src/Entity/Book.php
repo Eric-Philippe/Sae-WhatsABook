@@ -7,8 +7,9 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: Book::class)]
+#[ORM\Entity(repositoryClass: BookRepository::class)]
 class Book
 {
     #[ORM\Id]
@@ -43,6 +44,12 @@ class Book
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'book')]
     #[ORM\JoinTable(name: 'book_category')]
     #[Groups(["getBooks", "getLoans", "getAuthors"])]
+    #[Assert\Count(
+        min: 1,
+        max: 3,
+        minMessage: "Vous devez spécifier au moins une catégorie",
+        maxMessage: "Vous ne pouvez pas spécifier plus de 3 catégories"
+    )]
     private $categories;
     
     #[ORM\OneToOne(mappedBy: 'book', targetEntity: Reservation::class)]

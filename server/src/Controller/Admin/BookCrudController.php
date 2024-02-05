@@ -51,12 +51,21 @@ class BookCrudController extends AbstractCrudController
             UrlField::new('coverLink')->hideOnIndex(),
             IntegerField::new('pageNumber')->setLabel('Pages'),
             AssociationField::new('categories')
-            ->setLabel('Catégorie(s)')
-            ->formatValue(function ($value, $entity) {
-                return implode(', ', $entity->getCategories()->map(function ($category) {
-                    return $category->getName();
-                })->toArray());
-            }),
+                ->setLabel('Catégorie(s)')
+                ->setFormTypeOptions([
+                    'multiple' => true,
+                    'attr' => [
+                        'data-widget' => 'select2',
+                        'data-placeholder' => 'Sélectionnez jusqu\'à 3 catégories',
+                        'data-maximum-selection-length' => 3,
+                        'data-minimum-selection-length' => 1,
+                    ],
+                ])
+                ->formatValue(function ($value, $entity) {
+                    return implode(', ', $entity->getCategories()->map(function ($category) {
+                        return $category->getName();
+                    })->toArray());
+                }),
             AssociationField::new('authors')
             ->setLabel('Auteur(s)')
             ->formatValue(function ($value, $entity) {
