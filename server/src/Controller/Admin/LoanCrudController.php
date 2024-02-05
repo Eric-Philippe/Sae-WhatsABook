@@ -120,7 +120,7 @@ class LoanCrudController extends AbstractCrudController
                     $delay = $interval->days;
         
                     if ($delay <= 21) {
-                        return "<span style='color: white;'>".$delay." jours</span>";
+                        return "<span style='color: green;'>".$delay." jours</span>";
                     } else {
                         return "<span style='color: orange;'>".$delay." jours</span>";
                     }
