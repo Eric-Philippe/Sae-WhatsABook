@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Book;
 use App\Entity\Loan;
+use App\Repository\ReservationRepository;
 use App\Utils\Utils;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
@@ -30,11 +31,13 @@ class LoanCrudController extends AbstractCrudController
 {
     private $entityManager;
     private $requestStack;
+    private $reservationRepository;
 
-    public function __construct(EntityManagerInterface $entityManager, RequestStack $requestStack)
+    public function __construct(EntityManagerInterface $entityManager, RequestStack $requestStack, ReservationRepository $reservationRepository)
     {
         $this->entityManager = $entityManager;
         $this->requestStack = $requestStack;
+        $this->reservationRepository = $reservationRepository;
     }
 
     public static function getEntityFqcn(): string
@@ -156,8 +159,15 @@ class LoanCrudController extends AbstractCrudController
             $bookReserved = $book->getReservation();
             if ($bookReserved) {
                 if ($bookReserved->getMember() === $loanTemplate->getMember()) {
-                    $this->entityManager->remove($bookReserved);
-                    $this->entityManager->flush();
+                    $reservation = $this->reservationRepository->find($bookReserved->getId());
+                    $entityManager->remove($reservation);
+                    $entityManager->flush();
+
+                    $book->setReservation(null);
+                    $entityManager->persist($book);
+                    $entityManager->flush();
+
+                    $this->addFlash('error','La réservation du livre '.$book->getTitle().' a bien été annulée.;');
                 } else {
                     $this->addFlash('error', 'Le livre '.$book->getTitle().' est réservé par '.$bookReserved->getMember()->getFirstname().' '.$bookReserved->getMember()->getLastname().'.');
                     return;
