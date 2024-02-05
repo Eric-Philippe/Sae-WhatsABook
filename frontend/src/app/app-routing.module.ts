@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'author/:id', component: ConsultAuthorPage },
   { path: 'selection', component: SelectionPage },
   { path: 'adherent', component: AdherentPage },
-  { path: '**', component: NotFoundPage },
+  //{ path: '**', component: NotFoundPage },
 ];
 
 @NgModule({
