@@ -45,6 +45,6 @@
 - - [x] FAQ
 - - [x] Brancher le front au back
 
-- [ ] Devenir Adhérent
+- [w] Devenir Adhérent
 
 - [x] Mes Emprunts et Réservations

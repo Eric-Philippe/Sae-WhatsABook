@@ -75,7 +75,7 @@ export default class Session {
     this.token = '';
     this.user = {} as Member;
     this._isOpen = false;
-    localStorage.removeItem('token');
+    localStorage.clear();
   }
 
   public async login(email: string, password: string): Promise<boolean> {
