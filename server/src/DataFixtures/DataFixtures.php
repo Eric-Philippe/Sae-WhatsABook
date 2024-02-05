@@ -132,8 +132,8 @@ class DataFixtures extends Fixture
                 ->setId(Utils::generateUUID())
                 ->setEmail("ericphlpp@gmail.com")
                 ->setAdress("1 rue de la paix, 75000 Paris")
-                ->setFirstname("Admin")
-                ->setLastname("Doe")
+                ->setFirstname("Eric")
+                ->setLastname("PHILIPPE")
                 ->setPhoneNumber("0606060606")
                 ->setRole($roles[2])
                 ->setCreationDate(new \DateTime("now"))
@@ -160,6 +160,42 @@ class DataFixtures extends Fixture
         $manager->persist($me_member_member);
 
         $manager->flush();
+
+        $staff_member = new Member();
+        $staff_member->setPassword($this->userPasswordHasher->hashPassword($staff_member, "admin"))
+                ->setId(Utils::generateUUID())
+                ->setEmail("staff@staff.com")
+                ->setAdress("3 rue de la paix, 75000 Paris")
+                ->setFirstname("Staff")
+                ->setLastname("Doe")
+                ->setPhoneNumber("0606060606")
+                ->setRole($roles[1])
+                ->setCreationDate(new \DateTime("now"))
+                ->setPhotoLink("https://picsum.photos/360/360?image=".(89) ."&grayscale")
+                ->setBirthDate(new \DateTime("2003-05-13"))
+                ;
+
+                $manager->persist($staff_member);
+
+                $manager->flush();
+
+        $admin_member = new Member();
+        $admin_member->setPassword($this->userPasswordHasher->hashPassword($admin_member, "admin"))
+                ->setId(Utils::generateUUID())
+                ->setEmail("admin@admin.com")
+                ->setAdress("4 rue de la paix, 75000 Paris")
+                ->setFirstname("Admin")
+                ->setLastname("Doe")
+                ->setPhoneNumber("0606060606")
+                ->setRole($roles[2])
+                ->setCreationDate(new \DateTime("now"))
+                ->setPhotoLink("https://picsum.photos/360/360?image=".(89) ."&grayscale")
+                ->setBirthDate(new \DateTime("2003-05-13"))
+                ;
+
+                $manager->persist($admin_member);
+
+                $manager->flush();
 
         $members = [];
         $MEMBERS_COUNT = 30;

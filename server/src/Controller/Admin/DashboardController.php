@@ -15,6 +15,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class DashboardController extends AbstractDashboardController
 {
@@ -34,16 +35,19 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
 
-        /* Section 1 */
-        yield MenuItem::section('Section bibliotheque');
-        yield MenuItem::linkToCrud('Author', 'ffa fa-user', Author::class);
-        yield MenuItem::linkToCrud('Book', 'fa-solid fa-book', Book::class);
-        yield MenuItem::linkToCrud('Category', 'fa-solid fa-list', Category::class);
+        if ($this->isGranted('ROLE_ADMIN')) {
+            yield MenuItem::section('Section bibliotheque');
+            yield MenuItem::linkToCrud('Author', 'ffa fa-user', Author::class);
+            yield MenuItem::linkToCrud('Book', 'fa-solid fa-book', Book::class);
+            yield MenuItem::linkToCrud('Category', 'fa-solid fa-list', Category::class);
+        }
 
         /* Section 2 */
         yield MenuItem::section('Configuration interne');
-        yield MenuItem::linkToCrud('Member', 'fa fa-user', Member::class);
-        yield MenuItem::linkToCrud('Role', 'fa fa-user', Role::class);
+        if ($this->isGranted('ROLE_ADMIN')) {
+            yield MenuItem::linkToCrud('Member', 'fa fa-user', Member::class);
+            yield MenuItem::linkToCrud('Role', 'fa fa-user', Role::class);
+        }
         yield MenuItem::linkToCrud('Loan', 'fa-solid fa-bookmark', Loan::class);
         yield MenuItem::linkToCrud('Reservation', 'fa-solid fa-book-open', Reservation::class);
         yield MenuItem::linkToCrud('Suggestion', 'fa-solid fa-book-open', Suggestion::class);
