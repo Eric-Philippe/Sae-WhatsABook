@@ -76,4 +76,15 @@ class Reservation
 
         return $this;
     }
+
+    /**
+     * Maximum number of days a reservation can last 7 days
+     * 
+     */
+    public function getDaysLeft() {
+        $date = new \DateTime();
+        // Ued days
+        $daysSpent = $date->diff($this->dateResa)->format('%a');
+        return 7 - $daysSpent;
+    }
 }
