@@ -183,9 +183,6 @@ class Book
     }
 
     public function getLoans() {
-        if (!$this->loans) {
-            $this->loans = new ArrayCollection();
-        }
         return $this->loans;
     }
 }

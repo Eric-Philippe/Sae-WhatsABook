@@ -102,4 +102,12 @@ class Loan
 
         return $this;
     }
+
+    /**
+     * To string
+     */
+    public function __toString(): string
+    {
+        return 'Loan ID: ' . $this->id . ', Loan Date: ' . $this->loanDate->format('Y-m-d') . ', Return Date: ' . ($this->returnDate ? $this->returnDate->format('Y-m-d') : 'Not returned yet');
+    }
 }
