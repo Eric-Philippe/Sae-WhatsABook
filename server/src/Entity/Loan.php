@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\LoanRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
@@ -31,6 +32,8 @@ class Loan
     #[ORM\ManyToOne(targetEntity: Member::class, inversedBy: 'loans')]
     #[ORM\JoinColumn(name: 'member_id', referencedColumnName: 'id')]
     private ?Member $member = null;
+
+    private $books;
 
     public function getId(): ?string
     {
@@ -96,11 +99,42 @@ class Loan
         return $this->book;
     }
 
-    public function setBook($book): static
+    public function getBooks()
     {
-        $this->book = $book;
+        return $this->books;
+    }
+
+    public function setBook(Book | ArrayCollection | null $book): static
+    {
+        if ($book === null) {
+            return $this;
+        }
+        // If the type is Book
+        if ($book instanceof Book) {
+            $this->book = $book;
+            return $this;
+        }
+       $this->books = $book;
+       $this->book = $book[0];
 
         return $this;
+    }
+
+    public function getDelay() {
+        if ($this->returnDate === null) {
+            $today = new \DateTime();
+            $diff = $today->diff($this->loanDate);
+            return $diff->format('%a jours');
+        } else {
+            // If returnDate is not null, we calculate the delay from loanDate to returnDate
+            $diff = $this->returnDate->diff($this->loanDate);
+            return $diff->format('%a jours');
+        }
+    }
+
+    public function isReturnDateNull(): bool
+    {
+        return $this->returnDate === null;
     }
 
     /**

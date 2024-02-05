@@ -12,6 +12,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
@@ -29,7 +30,6 @@ class MemberCrudController extends AbstractCrudController
 
     private $requestStack;
     private $encoder;
-
     public function __construct(
         UserPasswordHasherInterface $encoder,
         RequestStack $requestStack
@@ -41,6 +41,23 @@ class MemberCrudController extends AbstractCrudController
     public static function getEntityFqcn(): string
     {
         return Member::class;
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->add(Crud::PAGE_INDEX, Action::DETAIL);
+    }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInSingular('Membre')
+            ->setEntityLabelInPlural('Membres')
+            ->setSearchFields(['lastname', 'firstname'])
+            ->setDefaultSort(['lastname' => 'ASC'])
+            ->setPaginatorPageSize(20)
+            ;
     }
 
     public static function getSubscribedEvents()
@@ -59,26 +76,27 @@ class MemberCrudController extends AbstractCrudController
             TextField::new('lastname')
                 ->setLabel('Nom')
             ,
-            TextField::new('adress')->setMaxLength(15)
+            TextField::new('adress')
                 ->setLabel('Adresse'),
             TextField::new('phoneNumber')
                 ->setLabel('Téléphone'),
             TextField::new('photoLink')->onlyOnForms(),
             DateField::new('birthDate')
-                    ->setLabel('Date de naissance'),
+                    ->setLabel('Date de naissance')
+                    ->hideOnIndex(),
             DateField::new('creationDate')
                 ->setLabel('Date de création')
                 ->onlyOnIndex()
                 ->setFormTypeOption('disabled', true)
             ,
             TextField::new('password')
+                ->onlyWhenCreating()
                 ->setFormType(RepeatedType::class)
                 ->setFormTypeOptions([
                     'type' => PasswordType::class,
                     'first_options' => ['label' => 'Mot de passe'],
                     'second_options' => ['label' => 'Répéter le mot de passe'],
                 ])
-                ->hideOnIndex()
                 ->setRequired(true)
             ,
             ChoiceField::new('roles')
@@ -90,6 +108,12 @@ class MemberCrudController extends AbstractCrudController
                 ])
                 ->allowMultipleChoices()
                 ->renderExpanded(),
+            AssociationField::new('loans')
+                ->setLabel('Emprunts terminés')
+                ->hideOnForm()
+                ->formatValue(function ($value, $entity) {
+                    return $value ? count($value) : '0';
+                }),
         ];
     }
     
@@ -114,6 +138,9 @@ class MemberCrudController extends AbstractCrudController
         return function($event) {
             $form = $event->getForm();
             if (!$form->isValid()) {
+                return;
+            }
+            if ($form->has('password') === false) {
                 return;
             }
             $password = $form->get('password')->getData();

@@ -192,4 +192,9 @@ class Book
     public function getLoans() {
         return $this->loans;
     }
+
+    public function __toString()
+    {
+        return $this->title;
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Category;
 use App\Utils\Utils;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -15,6 +16,16 @@ class CategoryCrudController extends AbstractCrudController
     public static function getEntityFqcn(): string
     {
         return Category::class;
+    }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setEntityLabelInSingular('Categorie')
+            ->setEntityLabelInPlural('Categories')
+            ->setSearchFields(['name'])
+            ->setPaginatorPageSize(20)
+            ;
     }
 
     public function configureFields(string $pageName): iterable

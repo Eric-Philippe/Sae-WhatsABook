@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MemberRepository::class)]
 class Member implements PasswordAuthenticatedUserInterface, UserInterface
@@ -60,6 +61,12 @@ class Member implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\OneToMany(mappedBy: 'member', targetEntity: Reservation::class, orphanRemoval: true)]
     private $reservation;
     #[ORM\OneToMany(mappedBy: 'member', targetEntity: Loan::class, orphanRemoval: true)]
+    #[Assert\Count(
+        min: 0,
+        max: 5,
+        minMessage: "Vous ne pouvez pas emprunter plus de 5 livres",
+        maxMessage: "Vous ne pouvez pas emprunter plus de 5 livres"
+        )]
     private $loans;
 
     public function getId(): ?string
@@ -209,6 +216,11 @@ class Member implements PasswordAuthenticatedUserInterface, UserInterface
         return $this;
     }
 
+    public function getLoans(): Collection
+    {
+        return $this->loans;
+    }
+
     public function getReservation()
     {
         return $this->reservation;
@@ -228,5 +240,10 @@ class Member implements PasswordAuthenticatedUserInterface, UserInterface
     public function eraseCredentials(): static
     {
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->firstname . ' ' . $this->lastname;
     }
 }

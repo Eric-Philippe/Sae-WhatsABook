@@ -7,6 +7,7 @@ use App\Entity\Book;
 use App\Utils\Utils;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -29,13 +30,19 @@ class AuthorCrudController extends AbstractCrudController
         return Author::class;
     }
 
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->add(Crud::PAGE_INDEX, Action::DETAIL);
+    }
+
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
             ->setEntityLabelInSingular('Auteur')
             ->setEntityLabelInPlural('Auteurs')
-            ->setSearchFields(['id', 'lastname', 'firstname'])
-            ->setDefaultSort(['id' => 'DESC'])
+            ->setSearchFields(['lastname', 'firstname'])
+            ->setDefaultSort(['lastname' => 'ASC'])
             ->setPaginatorPageSize(30)
             ;
     }
@@ -61,15 +68,16 @@ class AuthorCrudController extends AbstractCrudController
                 ->hideOnIndex()
                 ,
             TextField::new('description')
-            ->setMaxLength(20)
-            ,
+                ->setLabel('Biographie')
+                ,
             AssociationField::new('books')
             ->setLabel('Livre(s) écrit(s)')
             ->onlyOnIndex()
             ->formatValue(function ($value, $entity) {
                 return count($entity->getBooks());
             }),
-            TextEditorField::new('description', 'Description')->hideOnIndex(),
+            UrlField::new('photoLink')
+            ->setLabel('Photo')
         ];
     }
 
