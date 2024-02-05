@@ -65,4 +65,12 @@ class Category
     {
         return $this->books;
     }
+
+    /**
+     * To String
+     */
+    public function __toString(): string
+    {
+        return $this->name;
+    }
 }

@@ -35,7 +35,7 @@ class Suggestion
     #[ORM\JoinColumn(name: 'member_id', referencedColumnName: 'id')]
     private ?Member $member = null;
 
-    public function getId(): ?int
+    public function getId()
     {
         return $this->id;
     }

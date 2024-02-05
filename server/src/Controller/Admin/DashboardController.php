@@ -8,6 +8,7 @@ use App\Entity\Category;
 use App\Entity\Loan;
 use App\Entity\Member;
 use App\Entity\Reservation;
+use App\Entity\Suggestion;
 use App\Entity\Role;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -34,17 +35,18 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
 
         /* Section 1 */
-        yield MenuItem::section('Bibliotheque');
+        yield MenuItem::section('Section bibliotheque');
         yield MenuItem::linkToCrud('Author', 'ffa fa-user', Author::class);
         yield MenuItem::linkToCrud('Book', 'fa-solid fa-book', Book::class);
         yield MenuItem::linkToCrud('Category', 'fa-solid fa-list', Category::class);
 
         /* Section 2 */
-        yield MenuItem::section('Configuration');
+        yield MenuItem::section('Configuration interne');
         yield MenuItem::linkToCrud('Member', 'fa fa-user', Member::class);
         yield MenuItem::linkToCrud('Role', 'fa fa-user', Role::class);
         yield MenuItem::linkToCrud('Loan', 'fa-solid fa-bookmark', Loan::class);
         yield MenuItem::linkToCrud('Reservation', 'fa-solid fa-book-open', Reservation::class);
+        yield MenuItem::linkToCrud('Suggestion', 'fa-solid fa-book-open', Suggestion::class);
         
     }
 }
