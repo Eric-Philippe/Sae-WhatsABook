@@ -24,7 +24,7 @@ class UserController extends AbstractController
         $this->userPasswordHasher = $userPasswordHasher;
     }
 
-    #[Route('/api/user/me', name: 'user', methods: ['GET'])]
+    #[Route('/api/user/me', name: 'user_me', methods: ['GET'])]
     public function getConnectedUser(Request $request, MemberRepository $memberRepository): JsonResponse
     {
         
