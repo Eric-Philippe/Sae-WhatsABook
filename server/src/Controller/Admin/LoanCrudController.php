@@ -18,6 +18,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\CrudDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Config\KeyValueStore;
 use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use Symfony\Component\Form\FormEvents;
@@ -46,12 +47,18 @@ class LoanCrudController extends AbstractCrudController
         return $crud
             ->setEntityLabelInSingular('Emprunt')
             ->setEntityLabelInPlural('Emprunts')
-            ->setSearchFields(['book.title'])
+            ->setSearchFields(['book.title', 'member.firstname', 'member.lastname'])
             ->setDefaultSort(['loanDate' => 'ASC'])
             ->setPaginatorPageSize(20)
             ;
     }
 
+    public function configureFilters(Filters $filters): Filters
+    {
+        return $filters
+            ->add('returnDate')
+            ;
+    }
     
     public function configureFields(string $pageName): iterable
     {
