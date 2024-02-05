@@ -12,7 +12,7 @@
         Vous êtes connecté en tant que {{ userRole }}.</p>
         <p class="mt-4">Bienvenue  {{app.user.firstname}} {{ app.user.lastname }} !</p>
 
-    <div class="">
+    <div>
         <div class="grid gap-4 lg:gap-8 md:grid-cols-3 p-8">
             <div class="relative p-6 rounded-2xl bg-white shadow dark:bg-gray-800">
                 <div class="space-y-2">
@@ -88,7 +88,38 @@
                     </div>
                 </div>
             </div>
-            
+        </div>
+    </div>
+
+    <div class="grid gap-4 lg:gap-8 md:grid-cols-3 p-8">
+        <div class="relative p-6 rounded-2xl bg-white shadow dark:bg-gray-800 flex items-center justify-center transition-all duration-200 ease-in-out transform hover:border-indigo-500 hover:border-4 hover:shadow-lg">
+            <a class="space-y-2"
+                href='https://localhost:8008/admin?crudAction=index&crudControllerFqcn=App%5CController%5CAdmin%5CLoanCrudController'
+            >
+                <div class="text-3xl text-center">
+                    Consulter les emprunts
+                </div>
+            </a>
+        </div>
+
+        <div class="relative p-6 rounded-2xl bg-white shadow dark:bg-gray-800 flex items-center justify-center transition-all duration-200 ease-in-out transform hover:border-indigo-500 hover:border-4 hover:shadow-lg">
+            <a class="space-y-2"
+                href='https://localhost:8008/admin?crudAction=index&crudControllerFqcn=App%5CController%5CAdmin%5CSuggestionCrudController'
+            >
+                <div class="text-3xl text-center">
+                    Consulter les suggestions
+                </div>
+            </a>
+        </div>
+
+        <div class="relative p-6 rounded-2xl bg-white shadow dark:bg-gray-800 flex items-center justify-center transition-all duration-200 ease-in-out transform hover:border-indigo-500 hover:border-4 hover:shadow-lg">
+            <a class="space-y-2"
+                href='https://localhost:8008/admin?crudAction=index&crudControllerFqcn=App%5CController%5CAdmin%5CReservationCrudController'
+            >
+                <div class="text-3xl text-center">
+                    Consulter les réservations
+                </div>
+            </a>
         </div>
     </div>
 
