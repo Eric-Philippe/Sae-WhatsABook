@@ -64,7 +64,9 @@
         {% endif %}
 
         {% if app.user %}
-            <div class="mb-3">
+            <div class="mb-3"
+                onClick="this.style.display='none';"
+            >
                 Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
             </div>
         {% endif %}
