@@ -29,10 +29,11 @@ class BookCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm()->hideOnIndex(),
-            TextField::new('title'),
-            TextEditorField::new('summary'),
-            DateField::new('releaseDate'),
+            TextField::new('title')->setLabel('Titre'),
+            TextEditorField::new('summary')->setLabel('Résumé'),
+            DateField::new('releaseDate')->setLabel('Date de sortie'),
             ChoiceField::new('language')
+                ->setLabel('Langue')
                 ->setChoices([
                     'Anglais' => 'Anglais',
                     'Français' => 'Français',
@@ -48,7 +49,7 @@ class BookCrudController extends AbstractCrudController
                     'Japonais' => 'Japonais',
                 ])
             ,
-            UrlField::new('coverLink')->hideOnIndex(),
+            UrlField::new('coverLink')->hideOnIndex()->setLabel('Lien de la couverture'),
             IntegerField::new('pageNumber')->setLabel('Pages'),
             AssociationField::new('categories')
                 ->setLabel('Catégorie(s)')

@@ -53,13 +53,22 @@ class AuthorCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm(),
             TextField::new('lastname', 'Nom'),
             TextField::new('firstname', 'Prénom'),
             DateField::new('birthDate', 'Date de naissance')->setFormat('dd-MM-yyyy'),
             DateField::new('deathDate', 'Date de décès')->setFormat('dd-MM-yyyy')->hideOnIndex(),
-            TextField::new('nationality', 'Nationalité')->hideOnIndex(),
-            UrlField::new('photoLink', 'Photo'),
+            TextField::new('nationality', 'Nationalité')
+                ->hideOnIndex()
+                ,
+            TextField::new('description')
+            ->setMaxLength(20)
+            ,
+            AssociationField::new('books')
+            ->setLabel('Livre(s) écrit(s)')
+            ->onlyOnIndex()
+            ->formatValue(function ($value, $entity) {
+                return count($entity->getBooks());
+            }),
             TextEditorField::new('description', 'Description')->hideOnIndex(),
         ];
     }

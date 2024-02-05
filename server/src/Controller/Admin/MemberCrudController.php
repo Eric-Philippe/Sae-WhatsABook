@@ -3,7 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Member;
-
+use App\Utils\Utils;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -13,6 +13,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Event\BeforeEntityPersistedEvent;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -20,14 +21,22 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class MemberCrudController extends AbstractCrudController
 {
 
+    private $requestStack;
+    private $encoder;
+
     public function __construct(
-        private UserPasswordHasherInterface $encoder
-    ) {}
+        UserPasswordHasherInterface $encoder,
+        RequestStack $requestStack
+    ) {
+        $this->encoder = $encoder;
+        $this->requestStack = $requestStack;
+    }
 
     public static function getEntityFqcn(): string
     {
@@ -43,28 +52,47 @@ class MemberCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')->hideOnForm(),
             EmailField::new('email'),
+            TextField::new('firstname')
+            ->setLabel('Prénom')
+            ,
+            TextField::new('lastname')
+                ->setLabel('Nom')
+            ,
+            TextField::new('adress')->setMaxLength(15)
+                ->setLabel('Adresse'),
+            TextField::new('phoneNumber')
+                ->setLabel('Téléphone'),
+            TextField::new('photoLink')->onlyOnForms(),
+            DateField::new('birthDate')
+                    ->setLabel('Date de naissance'),
+            DateField::new('creationDate')
+                ->setLabel('Date de création')
+                ->onlyOnIndex()
+                ->setFormTypeOption('disabled', true)
+            ,
             TextField::new('password')
                 ->setFormType(RepeatedType::class)
                 ->setFormTypeOptions([
                     'type' => PasswordType::class,
-                    'first_options' => ['label' => 'Password'],
-                    'second_options' => ['label' => '(Repeat)'],
-                    'mapped' => false,
+                    'first_options' => ['label' => 'Mot de passe'],
+                    'second_options' => ['label' => 'Répéter le mot de passe'],
                 ])
-                ->setRequired($pageName === Crud::PAGE_NEW)
-                ->onlyOnForms(),
+                ->hideOnIndex()
+                ->setRequired(true)
+            ,
             ChoiceField::new('roles')
                 ->setLabel('Rôles')
                 ->setChoices([
                     'Utilisateur' => 'ROLE_USER',
-                    'Administrateur' => 'ROLE_ADMIN',
+                    'Responsable' => 'ROLE_ADMIN',
+                    'Bibliothécaire' => 'ROLE_STAFF',
                 ])
                 ->allowMultipleChoices()
                 ->renderExpanded(),
         ];
     }
+    
     public function createNewFormBuilder(EntityDto $entityDto, KeyValueStore $formOptions, AdminContext $context): FormBuilderInterface
     {
         $formBuilder = parent::createNewFormBuilder($entityDto, $formOptions, $context);
@@ -97,4 +125,12 @@ class MemberCrudController extends AbstractCrudController
             $form->getData()->setPassword($hash);
         };
     }    
+    
+    public function createEntity($entityFqcn) {
+        $member = new Member();
+        $member->setId(Utils::generateUuid());
+        $member->setCreationDate(new \DateTime());
+
+        return $member;
+    }
 }  

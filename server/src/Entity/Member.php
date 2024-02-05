@@ -58,10 +58,8 @@ class Member implements PasswordAuthenticatedUserInterface, UserInterface
     private ?Role $role = null;
 
     #[ORM\OneToMany(mappedBy: 'member', targetEntity: Reservation::class, orphanRemoval: true)]
-    #[ORM\OrderBy(['createdAt' => 'ASC'])]
     private $reservation;
     #[ORM\OneToMany(mappedBy: 'member', targetEntity: Loan::class, orphanRemoval: true)]
-    #[ORM\OrderBy(['loanDate' => 'ASC'])]
     private $loans;
 
     public function getId(): ?string
@@ -186,6 +184,9 @@ class Member implements PasswordAuthenticatedUserInterface, UserInterface
 
     public function getRoles(): array
     {
+        if ($this->role === null) {
+            return ['ROLE_USER'];
+        }
         return [$this->role->getName()];
     }
 
