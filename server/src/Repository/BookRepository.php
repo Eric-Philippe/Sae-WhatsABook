@@ -21,6 +21,19 @@ class BookRepository extends ServiceEntityRepository
         parent::__construct($registry, Book::class);
     }
 
+    public function findByAuthorCharacteristics($period, $nationality): array
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->join('b.author', 'a')
+            ->where('a.period = :period')
+            ->andWhere('a.nationality = :nationality')
+            ->setParameter('period', $period)
+            ->setParameter('nationality', $nationality)
+            ->getQuery();
+
+        return $qb->execute();
+    }
+
 //    /**
 //     * @return Book[] Returns an array of Book objects
 //     */

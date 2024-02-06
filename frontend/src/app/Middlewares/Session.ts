@@ -97,7 +97,7 @@ export default class Session {
         await this.fetchUser();
         resolve(true);
       } catch (err) {
-        throw err;
+        reject(false);
       }
     });
   }

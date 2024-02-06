@@ -45,4 +45,48 @@ class BookController extends AbstractController
 
         return new JsonResponse("NOT_IMPLEMENTED", Response::HTTP_CREATED, [], true);
    }
+
+   #[Route('/api/books/search/author', name: 'searchBooksByAuthor', methods: ['GET'])]
+    public function searchBooksByAuthor(Request $request, SerializerInterface $serializer, BookRepository $bookRepository)
+    {
+        // Get All the books
+        $books = $bookRepository->findAll();
+
+        // Get All the parameters (they can be null or not)
+        $firstname = $request->query->get('firstname');
+        $lastname = $request->query->get('lastname');
+        $nationality = $request->query->get('nationality');
+        $maxDate = $request->query->get('maxDate');
+        $minDate = $request->query->get('minDate');
+
+        // Filter the books taking into account the parameters that are not null
+        $filteredBooks = [];
+
+        for ($i = 0; $i < count($books); $i++) {
+            $authors = $books[$i]->getAuthors();
+            foreach ($authors as $author) {
+                if ($firstname != null && $author->getFirstname() != $firstname) {
+                    continue;
+                }
+                if ($lastname != null && $author->getLastname() != $lastname) {
+                    continue;
+                }
+                if ($nationality != null && $author->getNationality() != $nationality) {
+                    continue;
+                }
+                if ($maxDate != null && $author->getBirthDate() > $maxDate) {
+                    continue;
+                }
+                if ($minDate != null && $author->getBirthDate() < $minDate) {
+                    continue;
+                }
+                array_push($filteredBooks, $books[$i]);
+            }
+
+        }
+
+        // Serialize the filtered books
+        $jsonBooks = $serializer->serialize($filteredBooks, 'json', ['groups' => 'getBooks']);
+        return new JsonResponse($jsonBooks, Response::HTTP_OK, [], true);
+    }
 }

@@ -38,7 +38,11 @@ class DashboardController extends AbstractDashboardController
     public function index(): Response
     {
        $memberCount = $this->memberRepository->count([]);
-       $loanCount = $this->loanRepository->count([]);
+       $fullLoanCount = $this->loanRepository->count([]);
+       // Only get the one that got the returnDate not null
+        $notReturned = $this->loanRepository->count(['returnDate' => null]);
+        $loanCount = $fullLoanCount - $notReturned;
+
        $reservationsCount = $this->reservationRepository->count([]);
         $userRole = $this->getUser()->getRoles()[0];
         if ($userRole == 'ROLE_ADMIN') {
@@ -50,6 +54,7 @@ class DashboardController extends AbstractDashboardController
         return $this->render('admin/dashboard.html.twig', [
             'memberCount' => $memberCount,
             'loanCount' => $loanCount,
+            'fullLoanCount' => $fullLoanCount,
             'reservationsCount' => $reservationsCount,
             'userRole' => $userRole
         ]);

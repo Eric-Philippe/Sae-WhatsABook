@@ -31,11 +31,13 @@ export class LoginPage implements OnInit {
     const password = this.loginForm.get('password')?.value;
 
     if (!email || !password) {
+      this.wrongCredentials = true;
       return this.loginForm.markAllAsTouched();
     }
 
     try {
-      await this.session?.login(email, password);
+      const res = await this.session?.login(email, password);
+      if (!res) this.wrongCredentials = true;
       this.loginForm.reset();
       this.router.navigate(['/']);
     } catch (err) {

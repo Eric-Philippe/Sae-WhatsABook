@@ -7,7 +7,7 @@
 
     <div class="mt-5">
         <h1 class="text-4xl font-bold text-gray-900 dark:text-gray-200">
-        What's a Book - Bask Office</h1>
+        What's a Book - Basque Office</h1>
         <p class="text-sm font-semibold text-gray-500 dark:text-gray-200">
         Vous êtes connecté en tant que {{ userRole }}.</p>
         <p class="mt-4">Bienvenue  {{app.user.firstname}} {{ app.user.lastname }} !</p>
@@ -18,11 +18,11 @@
                 <div class="space-y-2">
                     <div
                         class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-200">
-                        <span>Nombre d'adhérents</span>
+                        <span>Nombre d'emprunt</span>
                     </div>
 
                     <div class="text-3xl">
-                        {{ memberCount }} membres
+                        {{ fullLoanCount }} emprunt(s)
                     </div>
 
                     <div class="flex items-center space-x-1 rtl:space-x-reverse text-sm font-medium text-green-600">
@@ -43,11 +43,11 @@
                 <div class="space-y-2">
                     <div
                         class="flex items-center space-x-2 rtl:space-x-reverse text-sm font-medium text-gray-500 dark:text-gray-200">
-                        <span>Nombre d'emprunts</span>
+                        <span>Nombre d'emprunts terminés</span>
                     </div>
 
                     <div class="text-3xl">
-                        {{ loanCount }} emprunts
+                        {{ loanCount }} emprunts terminés
                     </div>
 
                     <div class="flex items-center space-x-1 rtl:space-x-reverse text-sm font-medium text-red-600">
