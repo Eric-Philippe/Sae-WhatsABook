@@ -118,6 +118,7 @@ class BookCrudController extends AbstractCrudController
             ->setEntityLabelInPlural('Livres')
             ->setSearchFields(['title'])
             ->setPaginatorPageSize(30)
+            ->setEntityPermission('ROLE_ADMIN')
             ;
     }
     

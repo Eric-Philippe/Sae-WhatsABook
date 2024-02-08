@@ -58,6 +58,10 @@ class BookController extends AbstractController
         $nationality = $request->query->get('nationality');
         $maxDate = $request->query->get('maxDate');
         $minDate = $request->query->get('minDate');
+        // asc or desc
+        $sort = $request->query->get('sort');
+        // Max number of books to return
+        $offset = $request->query->get('offset');
 
         // Filter the books taking into account the parameters that are not null
         $filteredBooks = [];
@@ -85,6 +89,24 @@ class BookController extends AbstractController
 
         }
 
+        // Sort if needed
+        if ($sort != null) {
+            if ($sort == "asc") {
+                usort($filteredBooks, function ($a, $b) {
+                    return $a->getPublicationDate() > $b->getPublicationDate();
+                });
+            } else {
+                usort($filteredBooks, function ($a, $b) {
+                    return $a->getPublicationDate() < $b->getPublicationDate();
+                });
+            }
+        }
+
+        // Limit the number of books if needed
+        if ($offset != null) {
+            $filteredBooks = array_slice($filteredBooks, 0, $offset);
+        }
+        
         // Serialize the filtered books
         $jsonBooks = $serializer->serialize($filteredBooks, 'json', ['groups' => 'getBooks']);
         return new JsonResponse($jsonBooks, Response::HTTP_OK, [], true);

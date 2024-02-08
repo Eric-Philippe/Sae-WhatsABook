@@ -62,6 +62,7 @@ class MemberCrudController extends AbstractCrudController
             ->setSearchFields(['lastname', 'firstname'])
             ->setDefaultSort(['lastname' => 'ASC'])
             ->setPaginatorPageSize(20)
+            ->setEntityPermission('ROLE_ADMIN')
             ;
     }
 

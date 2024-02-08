@@ -1,0 +1,25 @@
+version: "3"
+services:
+  angular:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"
+  symfony:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "8000:9000"
+  mariadb:
+    build:
+      context: ./database
+      dockerfile: Dockerfile
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: WhatsABook
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
