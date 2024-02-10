@@ -308,5 +308,65 @@ class DataFixtures extends Fixture
 
         $manager->persist($suggestion);
         $manager->flush();
+
+        $albert = (new Author())->setId(Utils::generateUUID())
+            ->setFirstname("Albert")
+            ->setLastname("Camus")
+            ->setPhotoLink("https://randomuser.me/api/portraits")
+            ->setBirthDate(new \DateTime("1913-11-07"))
+            ->setDeathDate(new \DateTime("1960-01-04"))
+            ->setDescription("Albert Camus, né le 7 novembre 1913 à Mondovi, en Algérie, et mort le 4 janvier 1960 à Villeblevin, en France, est un écrivain, philosophe, romancier, dramaturge, essayiste et nouvelliste français. Il est aussi journaliste militant engagé dans la Résistance française et, dans les dernières années de sa vie, un intellectuel engagé dans les combats moraux de l'après-guerre.")
+            ->setNationality("Française")
+            ;
+
+        $manager->persist($albert);
+        $manager->flush();
+
+        // Create foor books (La Peste, La Chute L'étranger, Noces)
+        $laPeste = (new Book())->setId(Utils::generateUUID())
+            ->setCoverLink("https://picsum.photos/360/360?image=1")
+            ->setReleaseDate(new \DateTime("1947-06-10"))
+            ->setTitle("La Peste")
+            ->setSummary("La Peste est un roman d'Albert Camus publié en 1947 qui rapporte les événements de la ville d'Oran en Algérie, frappée par une épidémie de peste. Le roman est à la fois une allégorie et une réflexion sur la condition humaine.")
+            ->setLanguage("Français")
+            ->setPageNumber(308)
+            ->setAuthors([$albert])
+            ;
+
+        $laChute = (new Book())->setId(Utils::generateUUID())
+            ->setCoverLink("https://picsum.photos/360/360?image=2")
+            ->setReleaseDate(new \DateTime("1956-05-03"))
+            ->setTitle("La Chute")
+            ->setSummary("La Chute est un roman d'Albert Camus publié en 1956. Il s'agit du dernier roman achevé par l'auteur. Le roman est construit sous la forme d'un monologue, celui de Jean-Baptiste Clamence, un ancien avocat parisien reconverti en clochard.")
+            ->setLanguage("Français")
+            ->setPageNumber(156)
+            ->setAuthors([$albert])
+            ;
+
+        $letranger = (new Book())->setId(Utils::generateUUID())
+            ->setCoverLink("https://picsum.photos/360/360?image=3")
+            ->setReleaseDate(new \DateTime("1942-06-10"))
+            ->setTitle("L'étranger")
+            ->setSummary("L'Étranger est un roman d'Albert Camus, paru en 1942. Il prend place dans la tétralogie que Camus nomme « cycle de l'absurde », qui comprend Le Mythe de Sisyphe, Caligula, et Le Malentendu.")
+            ->setLanguage("Français")
+            ->setPageNumber(123)
+            ->setAuthors([$albert])
+            ;
+
+        $noces = (new Book())->setId(Utils::generateUUID())
+            ->setCoverLink("https://picsum.photos/360/360?image=4")
+            ->setReleaseDate(new \DateTime("1939-06-10"))
+            ->setTitle("Noces")
+            ->setSummary("Noces est un recueil de quatre essais d'Albert Camus, publié en 1939. Il s'agit du premier ouvrage de l'auteur, qui a alors 26 ans. Il est composé de quatre textes : Noces à Tipasa, Le Vent à Djémila, L'Été à Alger et Le Désert.")
+            ->setLanguage("Français")
+            ->setPageNumber(123)
+            ->setAuthors([$albert])
+            ;
+
+        $manager->persist($laPeste);
+        $manager->persist($laChute);
+        $manager->persist($letranger);
+        $manager->persist($noces);
+        $manager->flush();
     }
 }
