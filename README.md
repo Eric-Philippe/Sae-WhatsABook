@@ -8,6 +8,12 @@ This project is a web application in the context of the SAE course at the IUT of
 
 You can find the specifications in the [specifications](documentation/Projet_SF6_2023-24%20v2.md) file.
 
+## Contributors
+
+![Contributors](img/petty.png)
+
+- [Éric PHILIPPE]()
+
 ## Table of contents
 
 - [What's a Book? - Online Library](#whats-a-book---online-library)
@@ -251,6 +257,6 @@ You can use the `docker-compose.yml` file to run the whole project with `Docker`
 > crontab crontab
 ```
 
-## Authors
+## Author
 
 - Éric PHILIPPE
